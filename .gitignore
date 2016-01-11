@@ -1,5 +1,5 @@
-# Logs
-*.log
+# storage 
+storage
 
 # Runtime data
 pids

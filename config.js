@@ -21,5 +21,5 @@ module.exports = {
 	redis_db: 0,
 	
 	//日志
-	logfile: 'logs/cheese.log'
+	logfile: 'storage/logs/cheese.log'
 }
