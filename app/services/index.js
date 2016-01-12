@@ -1,0 +1,1 @@
+exports.Person = require('person');
