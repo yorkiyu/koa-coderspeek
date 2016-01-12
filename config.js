@@ -13,7 +13,7 @@ module.exports = {
 	keywords: '',
 	
 	// mongodb 配置
-	db: 'mongodb://127.0.0.1/node_club_dev',
+	db: 'mongodb://127.0.0.1/coderspeek',
 
 	// redis 配置，默认是本地
 	redis_host: '127.0.0.1',

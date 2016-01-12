@@ -2,6 +2,8 @@ var config = require('./config.js');
 var klogger = require('koa-logger');
 var logger = require('./common/logger');
 var router = require('./app/router'); 
+require("./app/middlewares/mongoose_log");
+require("./app/models");
 var koa = require('koa');
 var app = koa();
 
