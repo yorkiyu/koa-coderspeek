@@ -5,6 +5,7 @@ var ObjectId = Schema.ObjectId;
 
 var PersonSchema = new Schema({
 	name: { type: String },
+	code: { type: String },
 	desc: { type: String },
 	jobs: { type: String },
 	like_count: { type: Number, default: 0 },
@@ -13,7 +14,9 @@ var PersonSchema = new Schema({
 	github_url: { type: String },
 	blog_url: { type: String },
 	open_project: { type: String },
-	books: { type: String }
+	books: { type: String },
+	create_at: { type: Date, default: Date.now },
+	update_at: { type: Date, default: Date.now }
 });
 
 PersonSchema.plugin(BaseModel);

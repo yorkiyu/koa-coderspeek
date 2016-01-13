@@ -1,12 +1,13 @@
+require("colors");
 var config = require('./config.js');
 var klogger = require('koa-logger');
 var logger = require('./common/logger');
 var router = require('./app/router'); 
+var koa = require('koa');
 require("./app/middlewares/mongoose_log");
 require("./app/models");
-var koa = require('koa');
-var app = koa();
 
+var app = koa();
 app.use(klogger());
 
 //route 
