@@ -3,12 +3,20 @@ var config = require('./config.js');
 var klogger = require('koa-logger');
 var logger = require('./common/logger');
 var router = require('./app/router'); 
+var kstatic = require('koa-static');
+var path = require('path');
 var koa = require('koa');
 require("./app/middlewares/mongoose_log");
 require("./app/models");
 
 var app = koa();
 app.use(klogger());
+
+//load static file
+if(config.debug){
+    app.use(kstatic(path.join(__dirname,'bower_components')));
+}
+app.use(kstatic(path.join(__dirname,'public')));
 
 //route 
 router(app);

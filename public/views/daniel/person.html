@@ -1,16 +1,21 @@
-<% include ../share/header.html %>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../share/header.html %>
 </head>
 <body>
-
 <% include ../share/nav.html %>
-
 <article>
 	<section>
 		<h2><%= data %></h2>
 	</section>
 </article>
-
 <% include ../share/aside.html %>
 <% include ../share/footer.html %>
-	
+<%-
+    Loader("/jquery/dist/jquery.js")
+    .js("/jquery/dist/jquery.js").done({})
+%>
+</body>
+</html>
+
