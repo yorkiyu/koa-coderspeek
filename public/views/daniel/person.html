@@ -2,19 +2,39 @@
 <html>
 <head>
     <% include ../share/header.html %>
+	<%-
+		Loader()
+		.css('/bootstrap/dist/css/bootstrap.min.css')
+		.css('/bootstrap/dist/css/bootstrap-theme.min.css')
+		.css('/css/base.css')
+		.css('/css/daniel/person.css')
+		.done({})
+	%>
 </head>
 <body>
 <% include ../share/nav.html %>
 <article>
 	<section>
-		<h2><%= data %></h2>
+		<div class="container">
+			<ul class="content-panel clearfix">
+				<% for(var i=0;i<data.length;i++) {%>
+					<li>
+						<div class="content-box">	
+							<%= data[i].name %>
+						</div>
+					</li>	
+				<%}%>
+			</ul>
+		</div>
 	</section>
 </article>
 <% include ../share/aside.html %>
 <% include ../share/footer.html %>
 <%-
     Loader("/jquery/dist/jquery.js")
-    .js("/jquery/dist/jquery.js").done({})
+    .js("/jquery/dist/jquery.js")
+	.js("/bootstrap/dist/js/bootstrap.min.js")
+	.done({})
 %>
 </body>
 </html>

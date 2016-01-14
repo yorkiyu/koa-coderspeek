@@ -4,6 +4,7 @@ var klogger = require('koa-logger');
 var logger = require('./common/logger');
 var router = require('./app/router'); 
 var kstatic = require('koa-static');
+var favicon = require('koa-favicon');
 var path = require('path');
 var koa = require('koa');
 require("./app/middlewares/mongoose_log");
@@ -11,6 +12,9 @@ require("./app/models");
 
 var app = koa();
 app.use(klogger());
+
+//favicon 
+app.use(favicon(__dirname+'/favicon.ico'));
 
 //load static file
 if(config.debug){

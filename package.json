@@ -16,6 +16,7 @@
     "koa-basic-auth": "^1.1.1",
     "koa-compose": "^2.3.0",
     "koa-csrf": "^2.1.1",
+    "koa-favicon": "^1.2.0",
     "koa-logger": "^1.2.1",
     "koa-route": "^1.1.4",
     "koa-session": "^3.1.0",
