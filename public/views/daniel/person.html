@@ -6,6 +6,7 @@
 		Loader()
 		.css('/bootstrap/dist/css/bootstrap.min.css')
 		.css('/bootstrap/dist/css/bootstrap-theme.min.css')
+        .css('/css/icomoon-fonts.css')
 		.css('/css/base.css')
 		.css('/css/daniel/person.css')
 		.done({})
@@ -20,7 +21,22 @@
 				<% for(var i=0;i<data.length;i++) {%>
 					<li>
 						<div class="content-box">	
-							<%= data[i].name %>
+						    <div class="img-box img-circle" data-src="<%= data[i].head_src %>"></div>
+                            <div class="name-wrap text-center"><%= data[i].name %>&nbsp;&nbsp;<small><%= data[i].code %></small></div>
+                            <div class="info-wrap clearfix">
+                                <div class="block">
+                                    <span class="icon-github"></span> 
+                                    <span class="text"><%= data[i].followers %></span>
+                                </div>
+                                <div class="block">
+                                    <span class="icon-thumbs-up"></span> 
+                                    <span class="text"><%= data[i].starred %></span>
+                                </div>
+                                <div class="block">
+                                    <span class="icon-eye"></span>
+                                    <span class="text"><%= data[i].like %></span>
+                                </div>
+                            </div>
 						</div>
 					</li>	
 				<%}%>

@@ -13,7 +13,10 @@ var data = [
 		desc: '玉伯（王保平），淘宝前端类库 KISSY、前端模块化开发框架SeaJS、前端基础类库Arale的创始人。2003-2006 年，中科院物理所研究生，Fortran 与 C 程序员，喜爱实验模拟和数值计算。 2006-2008 年，在中科院软件所互联网实验室从事项目管理软件的研发，C# 与 Java 爱好者。 2008 年 4 月份加入淘宝，就职于 UED 部门。2009 年起，组建前端架构团队，在首页维护、全网性能优化、类库研发、知识沉淀、工具应用等方面取得了丰硕成果。',
 		jobs: '',
 		github_url: 'https://github.com/lifesinger',
-		open_project: ' KISSY,SeaJS,Araleu'
+		open_project: ' KISSY,SeaJS,Araleu',
+        followers: 123,
+        starred: 39,
+        like: 34
 	},
 	{
 		name: '郭家宝',

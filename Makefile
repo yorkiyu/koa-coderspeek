@@ -1,3 +1,3 @@
 install:
-	@bower install \
+	@bower install; \
 	npm install
