@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../share/header.html %>
+	<%-
+		Loader()
+		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+        .css('/src/css/icomoon-fonts.css')
+		.css('/src/css/base.css')
+		.css('/src/css/opensrc/list.css')
+		.done({})
+	%>
+</head>
+<body>
+<% include ../share/nav.html %>
+<article>
+	<section>
+		<div class="container">
+			<ul class="content-panel clearfix">
+				<% for(var i=0;i<data.length;i++) {%>
+					<li>
+						<div class="content-box">
+							<div class="language"><%=config.projectType[data[i].type]%></div>
+							<div class="name-wrap text-center">
+								<%= data[i].name %>
+							</div>
+							<div class="info-wrap clearfix">
+								<div class="block">
+									<span class="icon-github"></span> 
+                                    <span class="text"><%= data[i].starred %></span>
+								</div>
+								<div class="block">
+									<span class="icon-thumbs-up"></span> 
+                                    <span class="text"><%= data[i].like %></span>
+								</div>
+							</div>
+						</div>
+					</li>	
+				<%}%>
+			</ul>
+		</div>
+	</section>
+</article>
+<% include ../share/aside.html %>
+<% include ../share/footer.html %>
+<script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script>
+	seajs.config({
+		alias: {
+			'jquery': '/lib/jquery/2.2.0/jquery.js'
+		}
+	});
+	if(location.href.indexOf('dev=1') == -1){
+				seajs.use('/src/js/opensrc/list.js');		
+	}else {
+		seajs.use('/dist/opensrc/list.min.js');		
+	}
+</script>
+</body>
+</html>
+

@@ -21,5 +21,37 @@ module.exports = {
 	redis_db: 0,
 	
 	//日志
-	logfile: 'storage/logs/cheese.log'
+	logfile: 'storage/logs/cheese.log',
+
+	//projects type
+	projectType: {
+		1:	'javascript',
+		2: 'java',
+		3: 'php',
+		4: 'python',
+		5: 'c++/c',
+		6: 'css'
+	},
+
+	//导航
+	navis: [
+		{
+			id: 1,
+			name: '大牛',
+			code: 'daniel_list',
+			url: '/daniel/list'
+		},
+		{
+			id: 2,
+			name: '开源项目',
+			code: 'opensrc_list',
+			url: '/opensrc/list'
+		},
+		{
+			id: 3,
+			name: '实践',
+			code: 'practice_list',
+			url: '/practice/list'
+		}
+	]	
 }

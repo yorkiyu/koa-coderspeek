@@ -61,7 +61,12 @@ var data = [
 		blog_url: 'http://sofi.sh'
 	}
 ];
+
+Project.remove(function(err,product){
+	err && console.log(err);
+});
 async.each(data,function(item){
 	console.log(item);
 	Person.create(item);
 });
+mongoose.disconnect();

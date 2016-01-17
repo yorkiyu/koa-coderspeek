@@ -11,9 +11,9 @@
 	</div>
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
 	  <ul class="nav navbar-nav">
-		<li class="active"><a href="#">大牛</a></li>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
+		<%for(var i=0;i<config.navis.length;i++){%>
+			<li class="<%= config.navis[i].code == curpos?'active':'' %>"><a href="<%= config.navis[i].url %>"><%= config.navis[i].name %></a></li>
+		<%}%>
 	  </ul>
 	</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

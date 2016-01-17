@@ -29,6 +29,7 @@ module.exports = function(grunt){
 					//需要生成具名函数的文件集合
 					'src': [
 						'dist/daniel/person.min.js',
+						'src/js/common/lazyload.js',
 						'lib/bootstrap/3.3.6/js/bootstrap.js'
 					],
 					//生成存放的文件目录，里面的目录结构与src里面的文件名带有的目录结构一致
@@ -51,6 +52,7 @@ module.exports = function(grunt){
 					//合并后的文件地址
 					'public/dist/daniel/person.js': [
 						'public/dist/daniel/.build/dist/daniel/person.min.js',
+						'public/dist/daniel/.build/src/js/common/lazyload.js',
 						'public/dist/daniel/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
 						'public/lib/jquery/2.2.0/jquery.js'
 					] 

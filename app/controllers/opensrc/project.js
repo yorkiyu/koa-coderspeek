@@ -1,18 +1,17 @@
 var Services = require("../../services");
 var config = require("../../../config");
 var loader = require("loader");
-var Person = Services.Person;
-
+var Project = Services.Project;
 var render = require("../../../common/render");
 
 exports.index = function *(){
-    var data = yield Person.findAll();
-	this.body = yield render('daniel/list',{
+    var data = yield Project.findAll();
+	this.body = yield render('opensrc/list',{
 		data: data,
 		Loader: loader,
 		config: config,
-		title: '大牛-技术说',
-		curpos: 'daniel_list'
+		title: '开源项目-技术说',
+		curpos: 'opensrc_list'
 	});	
 }
 
