@@ -17,9 +17,7 @@ app.use(klogger());
 app.use(favicon(__dirname+'/favicon.ico'));
 
 //load static file
-if(config.debug){
-    app.use(kstatic(path.join(__dirname,'bower_components')));
-}
+app.use(kstatic(path.join(__dirname,'upload')));
 app.use(kstatic(path.join(__dirname,'public')));
 
 //route 

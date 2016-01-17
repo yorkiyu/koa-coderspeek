@@ -6,7 +6,7 @@ var ObjectId = Schema.ObjectId;
 var PersonSchema = new Schema({
 	name: { type: String },
 	code: { type: String },
-	head_img: { type: String },
+	head_src: { type: String },
 	desc: { type: String },
     followers: { type: Number, default: 0 },
     starred: { type: Number, default: 0 },

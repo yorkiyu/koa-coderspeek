@@ -4,11 +4,11 @@
     <% include ../share/header.html %>
 	<%-
 		Loader()
-		.css('/bootstrap/dist/css/bootstrap.min.css')
-		.css('/bootstrap/dist/css/bootstrap-theme.min.css')
-        .css('/css/icomoon-fonts.css')
-		.css('/css/base.css')
-		.css('/css/daniel/person.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+        .css('/src/css/icomoon-fonts.css')
+		.css('/src/css/base.css')
+		.css('/src/css/daniel/person.css')
 		.done({})
 	%>
 </head>
@@ -46,12 +46,19 @@
 </article>
 <% include ../share/aside.html %>
 <% include ../share/footer.html %>
-<%-
-    Loader("/jquery/dist/jquery.js")
-    .js("/jquery/dist/jquery.js")
-	.js("/bootstrap/dist/js/bootstrap.min.js")
-	.done({})
-%>
+<script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script>
+	seajs.config({
+		alias: {
+			'jquery': '/lib/jquery/2.2.0/jquery.js'
+		}
+	});
+	if(location.href.indexOf('dev=1') == -1){
+				seajs.use('/src/js/daniel/person.js');		
+	}else {
+		seajs.use('/dist/daniel/person.min.js');		
+	}
+</script>
 </body>
 </html>
 
