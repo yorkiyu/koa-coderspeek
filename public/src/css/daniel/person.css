@@ -73,7 +73,6 @@ ul.content-panel li:hover .content-box{
 }
 ul.content-panel li:hover .like-wrap {
 	opacity: 1;
-	display: block;
 }
 .content-box .name-wrap {
     height: 40px;
