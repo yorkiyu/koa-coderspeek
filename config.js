@@ -25,6 +25,10 @@ module.exports = {
     cookie_sign: ['koa','coderspeek'],
 	//日志
 	logfile: 'storage/logs/cheese.log',
+	
+	//分页
+	page_size: 3,
+	pageno: 1,
 
 	//projects type
 	projectType: {

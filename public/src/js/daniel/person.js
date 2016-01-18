@@ -25,27 +25,29 @@ define(function(require,exports,module){
             (function($target){
                 var data_count = parseInt($target.attr('data-count'))+1,
                     timer;
-                var temp_count = data_count - 7;
+                var temp_count = data_count - 7 < 0 ? 0 : data_count - 7;
                 timer = setInterval(function(){
                     $target.text(++temp_count);
                     if(temp_count >= data_count){
                         clearInterval(timer); 
                         setTimeout(function(){
-                            $target.text('')
+                            $target
+							.attr('data-count',$target.text())
+							.text('')
                             .addClass('icon-thumbs-up');
                         },1200); 
                     } 
                 },1000/60);
             })($target);
-            addService($target.attr('data-id'));
+            addService($target);
         }
-        function addService(person_id){
+        function addService($target){
+			var person_id = $target.attr('data-id');
             $.ajax({
                 type: 'get',
                 url: '/api/daniel/person/addLike?perid='+person_id,
                 dataType: 'json',
                 success: function(data){
-                     
                 },
                 error: function(data){
                 

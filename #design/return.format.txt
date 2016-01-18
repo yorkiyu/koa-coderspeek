@@ -1,0 +1,25 @@
+Api参数返回统一：
+
+format：
+{
+	status: false | true
+	count: integer
+	data: string or array
+	ext: whatever
+}
+
+
+
+1. status: api请求状态，true: 成功，　false:失败
+2. count : 成功：返回的数据条数(不要依赖此数据), 失败：错误代号
+3. data  : 纯数据，字符串或者json
+4. ext   : 额外数据，可以依据api调用者不同.
+
+
+status为false时，count的错误代码含义统一：
+0 : api调用传入的参数错误
+1 : no session(未授权)
+2 : 空记录(返回的数据为空，例如查询结果为空)
+3 : 操作失败(例如，数据库添加失败)
+4 : 重复数据操作（例如：投稿同一地址，订阅同一频道）
+5 : API自定义含义错误代码

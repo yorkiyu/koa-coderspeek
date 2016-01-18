@@ -16,7 +16,7 @@ var data = [
 		open_project: ' KISSY,SeaJS,Araleu',
         followers: 123,
         starred: 39,
-        like: 34
+        like_count: 34
 	},
 	{
 		name: '郭家宝',

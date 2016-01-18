@@ -3,4 +3,5 @@ var person = require('../api/daniel/person');
 
 module.exports = function(app){
 	app.use(route.get('/api/daniel/person/addLike',person.addLike));
+	app.use(route.get('/api/daniel/person/list',person.list));
 };
