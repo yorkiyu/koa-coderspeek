@@ -62,7 +62,7 @@ var data = [
 	}
 ];
 
-Project.remove(function(err,product){
+Person.remove(function(err,product){
 	err && console.log(err);
 });
 async.each(data,function(item){

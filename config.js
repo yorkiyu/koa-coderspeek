@@ -19,7 +19,10 @@ module.exports = {
 	redis_host: '127.0.0.1',
 	redis_port: 6379,
 	redis_db: 0,
-	
+    
+    //cookie key
+    cookie_name: 'coderspeek',//default 'koa.sid'
+    cookie_sign: ['koa','coderspeek'],
 	//日志
 	logfile: 'storage/logs/cheese.log',
 

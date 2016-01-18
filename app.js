@@ -6,12 +6,22 @@ var router = require('./app/router');
 var kstatic = require('koa-static');
 var favicon = require('koa-favicon');
 var path = require('path');
+var session = require('koa-generic-session');
+var redisStore = require('koa-redis');
+
 var koa = require('koa');
 require("./app/middlewares/mongoose_log");
 require("./app/models");
 
 var app = koa();
 app.use(klogger());
+
+//set cookie sign
+app.keys = config.cookie_sign;
+app.use(session({
+    key: config.cookie_name,
+    store: redisStore()
+}));
 
 //favicon 
 app.use(favicon(__dirname+'/favicon.ico'));

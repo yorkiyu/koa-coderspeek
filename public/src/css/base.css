@@ -4,6 +4,34 @@ body {
 	margin: 0;
 	background-color: #ebebeb;
 }
+.container {
+    position: relative;
+}
+.login-wrap {
+    display: inline-block; 
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 15px;
+}
+.login-wrap .login-btn {
+    font-size: 1em;
+    color: #9d9d9d;
+    line-height: 30px;
+    position: relative;
+    top: 50%;
+    margin-top: -15px;
+} 
+.login-btn a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.login-btn i {
+    color: #cacaca;
+}
 .img-box{
     width: 100%;
     height: 100%;
@@ -29,9 +57,9 @@ body {
 
 .load-more {
 	margin-top: 5px;
-	padding: 15px 0;
+	padding: 10px 0;
 	line-height: 30px;
-	font-size: 1.6em;
+	font-size: 1.2em;
 	text-align: center;
 	letter-spacing: .2em;
 	color: #999;
