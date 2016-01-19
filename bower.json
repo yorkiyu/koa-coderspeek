@@ -16,6 +16,7 @@
   "dependencies": {
     "jquery": "~2.2.0",
     "bootstrap": "~3.3.6",
-    "seajs": "~3.0.0"
+    "seajs": "~3.0.0",
+    "ejs": "~1.0.0"
   }
 }

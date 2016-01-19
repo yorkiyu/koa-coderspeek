@@ -2,37 +2,36 @@ define("/dist/daniel/person.min", [ "jquery" ], function(require, exports, modul
     var $ = require("jquery");
     var bootstrap = require("/lib/bootstrap/3.3.6/js/bootstrap.js");
     var lazyload = require("/src/js/common/lazyload.js");
-    lazyload.push($(".img-box"));
-    lazyload.emit();
-    var $content_panel = $(".content-panel");
-    //event agent
-    $content_panel.bind("click", function(e) {
-        var target = e.target || e.srcElement, $target = $(target);
-        if ($target.hasClass("like-wrap")) {
-            LikeModule.clickAction(e, $target);
-        } else {}
-    });
+    var constants = require("/src/js/common/constants.js");
+    var baidu_t = require("/lib/baidu/1.0.5/baiduTemplate.js");
+    baidu_t.template.LEFT_DELIMITER = "<?";
+    baidu_t.template.RIGHT_DELIMITER = "?>";
+    var $content_panel = $("#content-panel");
     //like module
     var LikeModule = function() {
         function clickAction(e, $target) {
+            if (!$target.hasClass("icon-thumbs-up")) {
+                return;
+            }
             e.stopPropagation();
             $target.removeClass("icon-thumbs-up");
             (function($target) {
                 var data_count = parseInt($target.attr("data-count")) + 1, timer;
-                var temp_count = data_count - 7;
+                var temp_count = data_count - 7 < 0 ? 0 : data_count - 7;
                 timer = setInterval(function() {
                     $target.text(++temp_count);
                     if (temp_count >= data_count) {
                         clearInterval(timer);
                         setTimeout(function() {
-                            $target.text("").addClass("icon-thumbs-up");
+                            $target.attr("data-count", $target.text()).text("").addClass("icon-thumbs-up");
                         }, 1200);
                     }
                 }, 1e3 / 60);
             })($target);
-            addService($target.attr("data-id"));
+            addService($target);
         }
-        function addService(person_id) {
+        function addService($target) {
+            var person_id = $target.attr("data-id");
             $.ajax({
                 type: "get",
                 url: "/api/daniel/person/addLike?perid=" + person_id,
@@ -44,6 +43,79 @@ define("/dist/daniel/person.min", [ "jquery" ], function(require, exports, modul
         return {
             clickAction: clickAction
         };
+    }();
+    //load more data module
+    var ListModule = function() {
+        var list_item_tpl = $("#list-item-tpl").html(), $load_more_wrap = $("#load-more-wrap");
+        pageno = 2, isRequesting = false, isEmpty = false;
+        function run() {
+            $load_more_wrap.bind("click", function() {
+                nextPage();
+            });
+        }
+        function nextPage() {
+            service();
+        }
+        function service() {
+            if (isRequesting || isEmpty) {
+                return;
+            }
+            isRequesting = true;
+            $load_more_wrap.html(constants.loading);
+            $.ajax({
+                type: "get",
+                url: "/api/daniel/person/list?pageno=" + pageno,
+                dataType: "json",
+                success: function(ret) {
+                    if (!ret.status) {
+                        $load_more_wrap.html(constants.empty);
+                        isEmpty = true;
+                    } else {
+                        pageno = parseInt(ret.data.pageno) + 1;
+                        var html = createWidget(ret.data);
+                        var $html = $(html);
+                        $content_panel.append($html);
+                        lazyload.push($html.find(".img-box"));
+                        lazyload.emit();
+                        $load_more_wrap.html(constants.more);
+                    }
+                    isRequesting = false;
+                },
+                error: function(ret) {
+                    $load_more_wrap.html(constants.empty);
+                    isEmpty = true;
+                }
+            });
+        }
+        function createWidget(data) {
+            var html = baidu_t.template(list_item_tpl, data);
+            return html;
+        }
+        return {
+            run: run,
+            nextPage: nextPage
+        };
+    }();
+    //main module
+    var MainModule = function() {
+        function run() {
+            //execute list module
+            ListModule.run();
+            agent();
+            //load img
+            lazyload.push($(".img-box"));
+            lazyload.emit();
+        }
+        function agent() {
+            //event agent
+            $content_panel.bind("click", function(e) {
+                var target = e.target || e.srcElement, $target = $(target);
+                if ($target.hasClass("like-wrap")) {
+                    LikeModule.clickAction(e, $target);
+                } else {}
+            });
+        }
+        run();
     }();
 });
 
@@ -149,6 +221,23 @@ define("/src/js/common/lazyload", [ "jquery" ], function(require, exports, modul
     exports.runLoadImg = runLoadImg;
     exports.emit = function() {
         $(document).trigger("loadimg");
+    };
+});
+
+define("/src/js/common/constants", [], function(require, exports, module) {
+    module.exports = {
+        more: '<div class="more">加载更多</div>',
+        loading: '<div class="loading"><img src="/images/i_load.gif"/>&nbsp;&nbsp;加载中</div>',
+        empty: '<div class="empty">没有更多内容</div>',
+        errorImg: '<div class="error-img-wrap"><div class="img-wrap"><p><img src=""/></p><p>加载出错</p></div></div>',
+        projectType: {
+            1: "javascript",
+            2: "java",
+            3: "php",
+            4: "python",
+            5: "c++/c",
+            6: "css"
+        }
     };
 });
 
@@ -1849,6 +1938,123 @@ define("/lib/bootstrap/3.3.6/js/bootstrap", [ "jquery" ], function(require, expo
             });
         });
     }(jQuery);
+});
+
+/**
+ * baiduTemplate简单好用的Javascript模板引擎 1.0.5 版本
+ * http://baidufe.github.com/BaiduTemplate
+ * 开源协议：BSD License
+ * 浏览器环境占用命名空间 baidu.template ，nodejs环境直接安装 npm install baidutemplate
+ * @param str{String} dom结点ID，或者模板string
+ * @param data{Object} 需要渲染的json对象，可以为空。当data为{}时，仍然返回html。
+ * @return 如果无data，直接返回编译后的函数；如果有data，返回html。
+ * @author wangxiao 
+ * @email 1988wangxiao@gmail.com
+*/
+define("/lib/baidu/1.0.5/baiduTemplate", [], function(require, exports, module) {
+    (function() {
+        //用来存储页面中的js代码(用于nodejs环境)
+        var jsStr = "", baidu = {};
+        module.exports = baidu;
+        //模板函数
+        baidu.template = function(str, data) {
+            //检查是否有该id的元素存在，如果有元素则获取元素的innerHTML/value，否则认为字符串为模板
+            var fn = function() {
+                //判断如果没有document，则为非浏览器环境
+                if (!this.document) {
+                    return bt._compile(str);
+                }
+                //HTML5规定ID可以由任何不包含空格字符的字符串组成
+                var element = document.getElementById(str);
+                if (element) {
+                    //取到对应id的dom，缓存其编译后的HTML模板函数
+                    if (bt.cache[str]) {
+                        return bt.cache[str];
+                    }
+                    //textarea或input则取value，其它情况取innerHTML
+                    var tpl = /^(textarea|input)$/i.test(element.nodeName) ? element.value : element.innerHTML;
+                    return bt._compile(tpl);
+                } else {
+                    //是模板字符串，则生成一个函数
+                    //如果直接传入字符串作为模板，则可能变化过多，因此不考虑缓存
+                    return bt._compile(str);
+                }
+            }();
+            //jsStr 是将页面中<script>标签中的js代码放回页面中
+            var html = fn(data);
+            html = html.replace("</body>", jsStr + "</body>");
+            //有数据则返回HTML字符串，没有数据则返回函数 支持data={}的情况
+            var result = bt._isObject(data) ? html : fn;
+            html = null;
+            fn = null;
+            return result;
+        };
+        //取得命名空间 baidu.template
+        bt = baidu.template;
+        //缓存  将对应id模板生成的函数缓存下来。
+        bt.cache = {};
+        //自定义分隔符，可以含有正则中的字符，可以是HTML注释开头 <! !>
+        bt.LEFT_DELIMITER = bt.LEFT_DELIMITER || "<%";
+        bt.RIGHT_DELIMITER = bt.RIGHT_DELIMITER || "%>";
+        //自定义默认是否转义，默认为默认自动转义
+        bt.ESCAPE = true;
+        //HTML转义
+        bt._encodeHTML = function(source) {
+            return String(source).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\/g, "&#92;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        };
+        //转义影响正则的字符
+        bt._encodeReg = function(source) {
+            return String(source).replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+        };
+        //转义UI UI变量使用在HTML页面标签onclick等事件函数参数中
+        bt._encodeEventHTML = function(source) {
+            return String(source).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/\\/g, "\\\\").replace(/\//g, "\\/").replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+        };
+        //将字符串拼接生成函数，即编译过程(compile)
+        bt._compile = function(str) {
+            var funBody = "var _template_fun_array=[];\nvar fn=(function(data){\nvar _template_varName='';\nfor(name in data){\n_template_varName+=('var '+name+'=data[\"'+name+'\"];');\n};\neval(_template_varName);\n_template_fun_array.push('" + bt._analysisStr(str) + "');\n_template_varName=null;\n})(_template_object);\nfn = null;\nreturn _template_fun_array.join('');\n";
+            return new Function("_template_object", funBody);
+        };
+        //判断是否是Object类型
+        bt._isObject = function(source) {
+            return "function" === typeof source || !!(source && "object" === typeof source);
+        };
+        //解析模板字符串
+        bt._analysisStr = function(str) {
+            //取得分隔符
+            var _left_ = bt.LEFT_DELIMITER;
+            var _right_ = bt.RIGHT_DELIMITER;
+            //对分隔符进行转义，支持正则中的元字符，可以是HTML注释 <!  !>
+            var _left = bt._encodeReg(_left_);
+            var _right = bt._encodeReg(_right_);
+            str = String(str).replace(/<script\s+type\s*=\s*['|"]text\/javascript['|"]\s*>[\s\S]*?<\/script>/g, function(item, $1) {
+                jsStr += item + "\n";
+                return "";
+            });
+            str = str.replace(new RegExp("(" + _left + "[^" + _right + "]*)//.*\n", "g"), "$1").replace(new RegExp("<!--.*?-->", "g"), "").replace(new RegExp(_left + "\\*.*?\\*" + _right, "g"), "").replace(new RegExp("[\\r\\t\\n]", "g"), "").replace(new RegExp(_left + "(?:(?!" + _right + ")[\\s\\S])*" + _right + "|((?:(?!" + _left + ")[\\s\\S])+)", "g"), function(item, $1) {
+                var str = "";
+                if ($1) {
+                    //将 斜杠 单引 HTML转义
+                    str = $1.replace(/\\/g, "&#92;").replace(/'/g, "&#39;");
+                    while (/<[^<]*?&#39;[^<]*?>/g.test(str)) {
+                        //将标签内的单引号转义为\r  结合最后一步，替换为\'
+                        str = str.replace(/(<[^<]*?)&#39;([^<]*?>)/g, "$1\r$2");
+                    }
+                } else {
+                    str = item;
+                }
+                return str;
+            }).replace(new RegExp("(" + _left + ":?[hvu]?[\\s]*?=[\\s]*?[^;|" + _right + "]*?);[\\s]*?" + _right, "g"), "$1" + _right_).replace(new RegExp("(" + _left + "[\\s]*?var[\\s]*?.*?[\\s]*?[^;])[\\s]*?" + _right, "g"), "$1;" + _right_).split(_left_).join("	");
+            //支持用户配置默认是否自动转义
+            if (bt.ESCAPE) {
+                str = str.replace(new RegExp("\\t=(.*?)" + _right, "g"), "',typeof($1) === 'undefined'?'':$1,'");
+            } else {
+                str = str.replace(new RegExp("\\t=(.*?)" + _right, "g"), "',typeof($1) === 'undefined'?'':$1,'");
+            }
+            str = str.replace(new RegExp("\\t:h=(.*?)" + _right, "g"), "',typeof($1) === 'undefined'?'':$1,'").replace(new RegExp("\\t(?::=|-)(.*?)" + _right, "g"), "',typeof($1)==='undefined'?'':$1,'").replace(new RegExp("\\t:u=(.*?)" + _right, "g"), "',typeof($1)==='undefined'?'':encodeURIComponent($1),'").replace(new RegExp("\\t:v=(.*?)" + _right, "g"), "',typeof($1)==='undefined'?'':$1,'").split("	").join("');").split(_right_).join("_template_fun_array.push('").split("\r").join("\\'");
+            return str;
+        };
+    })();
 });
 
 /*!

@@ -48,11 +48,14 @@ exports.list = function *(){
 	this.type = 'json';
 	//读取数据
     var data = yield Person.findAll(null,'name code followers visit_count like_count _id head_src',{limit: config.page_size,skip: page_size * (pageno-1)});
-
-	if(!data){
+	if(!data || data.length <= 0){
 		this.body = JSON.stringify({status: false,count: 2,data:'Empty'});
 	}else {
-		this.body = JSON.stringify({status: true,count: 0,data:data});
+        var ret = {
+            list: data,
+            pageno: pageno
+        };
+		this.body = JSON.stringify({status: true,count: 0,data: ret});
 	}
 }
 

@@ -55,7 +55,7 @@ body {
 	margin-top: -20px;
 }
 
-.load-more {
+#load-more-wrap {
 	margin-top: 5px;
 	padding: 10px 0;
 	line-height: 30px;
@@ -66,6 +66,12 @@ body {
 	cursor: pointer;
 	background-color: #f7f7f7;
 }
-.load-more:hover {
+#load-more-wrap:hover {
 	color: #333;
 }
+#load-more-wrap .loading img{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+

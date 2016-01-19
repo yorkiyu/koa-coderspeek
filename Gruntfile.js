@@ -30,7 +30,9 @@ module.exports = function(grunt){
 					'src': [
 						'dist/daniel/person.min.js',
 						'src/js/common/lazyload.js',
-						'lib/bootstrap/3.3.6/js/bootstrap.js'
+                        'src/js/common/constants.js',
+						'lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'lib/baidu/1.0.5/baiduTemplate.js'
 					],
 					//生成存放的文件目录，里面的目录结构与src里面的文件名带有的目录结构一致
 					'dest': 'public/dist/daniel/.build'
@@ -53,7 +55,9 @@ module.exports = function(grunt){
 					'public/dist/daniel/person.js': [
 						'public/dist/daniel/.build/dist/daniel/person.min.js',
 						'public/dist/daniel/.build/src/js/common/lazyload.js',
+						'public/dist/daniel/.build/src/js/common/constants.js',
 						'public/dist/daniel/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'public/dist/daniel/.build/lib/baidu/1.0.5/baiduTemplate.js',
 						'public/lib/jquery/2.2.0/jquery.js'
 					] 
 				}
