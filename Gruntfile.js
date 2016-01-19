@@ -7,7 +7,8 @@ module.exports = function(grunt){
 		copy: {
 			daniel: { 
 				files: {
-					"public/dist/daniel/person.min.js": ["public/src/js/daniel/person.js"]	
+					"public/dist/daniel/person.min.js": ["public/src/js/daniel/person.js"],
+					"public/dist/opensrc/list.min.js": ["public/src/js/opensrc/list.js"]	
 				}	
 			}	
 		},
@@ -37,6 +38,27 @@ module.exports = function(grunt){
 					//生成存放的文件目录，里面的目录结构与src里面的文件名带有的目录结构一致
 					'dest': 'public/dist/daniel/.build'
 				}]
+			},
+            opensrc: {
+				options: {
+					//生成具名函数的id格式
+					idleading: '/'
+				},
+				files: [{
+					'expand': true,
+					//相对路径地址
+					'cwd': 'public',
+					//需要生成具名函数的文件集合
+					'src': [
+						'dist/opensrc/list.min.js',
+						'src/js/common/lazyload.js',
+                        'src/js/common/constants.js',
+						'lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'lib/baidu/1.0.5/baiduTemplate.js'
+					],
+					//生成存放的文件目录，里面的目录结构与src里面的文件名带有的目录结构一致
+					'dest': 'public/dist/opensrc/.build'
+				}]
 			}	
 		},
 		/***
@@ -61,7 +83,24 @@ module.exports = function(grunt){
 						'public/lib/jquery/2.2.0/jquery.js'
 					] 
 				}
-			}	
+			},
+            opensrc: {
+				options: {
+					//是否采用相对地址
+					relative: true
+				},
+				files: {
+					//合并后的文件地址
+					'public/dist/opensrc/list.js': [
+						'public/dist/opensrc/.build/dist/opensrc/list.min.js',
+						'public/dist/opensrc/.build/src/js/common/lazyload.js',
+						'public/dist/opensrc/.build/src/js/common/constants.js',
+						'public/dist/opensrc/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'public/dist/opensrc/.build/lib/baidu/1.0.5/baiduTemplate.js',
+						'public/lib/jquery/2.2.0/jquery.js'
+					] 
+				}
+			}		
 		},
 		/***
 		step 4:
@@ -70,7 +109,8 @@ module.exports = function(grunt){
 		uglify: {
 			daniel: {
 				files: {
-					'public/dist/daniel/person.min.js': ['public/dist/daniel/person.js']	
+					'public/dist/daniel/person.min.js': ['public/dist/daniel/person.js'],	
+					'public/dist/opensrc/list.min.js': ['public/dist/opensrc/list.js']	
 				}	
 			}	
 		},
@@ -80,7 +120,8 @@ module.exports = function(grunt){
 		**/
 		clean: {
 		   build: [
-				'public/dist/daniel/.build' 
+				'public/dist/daniel/.build',
+				'public/dist/opensrc/.build'
 		   ]
 		}
 	});
