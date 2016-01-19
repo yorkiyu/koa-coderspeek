@@ -7,7 +7,7 @@ module.exports = function(grunt){
 		copy: {
 			daniel: { 
 				files: {
-					"public/dist/daniel/person.min.js": ["public/src/js/daniel/person.js"],
+					"public/dist/daniel/list.min.js": ["public/src/js/daniel/list.js"],
 					"public/dist/opensrc/list.min.js": ["public/src/js/opensrc/list.js"]	
 				}	
 			}	
@@ -29,7 +29,7 @@ module.exports = function(grunt){
 					'cwd': 'public',
 					//需要生成具名函数的文件集合
 					'src': [
-						'dist/daniel/person.min.js',
+						'dist/daniel/list.min.js',
 						'src/js/common/lazyload.js',
                         'src/js/common/constants.js',
 						'lib/bootstrap/3.3.6/js/bootstrap.js',
@@ -74,8 +74,8 @@ module.exports = function(grunt){
 				},
 				files: {
 					//合并后的文件地址
-					'public/dist/daniel/person.js': [
-						'public/dist/daniel/.build/dist/daniel/person.min.js',
+					'public/dist/daniel/list.js': [
+						'public/dist/daniel/.build/dist/daniel/list.min.js',
 						'public/dist/daniel/.build/src/js/common/lazyload.js',
 						'public/dist/daniel/.build/src/js/common/constants.js',
 						'public/dist/daniel/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
@@ -109,7 +109,7 @@ module.exports = function(grunt){
 		uglify: {
 			daniel: {
 				files: {
-					'public/dist/daniel/person.min.js': ['public/dist/daniel/person.js'],	
+					'public/dist/daniel/list.min.js': ['public/dist/daniel/list.js'],	
 					'public/dist/opensrc/list.min.js': ['public/dist/opensrc/list.js']	
 				}	
 			}	

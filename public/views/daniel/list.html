@@ -8,7 +8,7 @@
 		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
         .css('/src/css/icomoon-fonts.css')
 		.css('/src/css/base.css')
-		.css('/src/css/daniel/person.css')
+		.css('/src/css/daniel/list.css')
 		.done({})
 	%>
 </head>
@@ -81,9 +81,9 @@
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){
-		seajs.use('/src/js/daniel/person.js');		
+		seajs.use('/src/js/daniel/list.js');		
 	}else {
-		seajs.use('/dist/daniel/person.min.js');		
+		seajs.use('/dist/daniel/list.min.js');		
 	}
 </script>
 </body>
