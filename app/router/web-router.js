@@ -8,6 +8,7 @@ module.exports = function(app){
 	app.use(route.get('/', learning.index));
 	app.use(route.get('/sign/login', sign.index));
 	app.use(route.get('/daniel/list', person.index));
+	app.use(route.get('/daniel/view/:id', person.view));
 	app.use(route.get('/opensrc/list', project.index));
 };
 

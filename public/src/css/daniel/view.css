@@ -1,0 +1,30 @@
+.aside-wrap {
+	width: 25%;
+	float: left;
+}
+.content-wrap {
+	width: 75%;
+	float: left;
+}
+.content-wrap .content-panel {
+	min-height: 740px;
+	margin-bottom: 25px;
+	background-color: #fff;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+.aside-wrap .aside-panel {
+	min-height: 740px;
+	padding: 15px;
+	background-color: #f7f7f7;
+	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.aside-wrap .portrait {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 100%;
+	overflow: hidden;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../share/header.html %>
+	<%-
+		Loader()
+		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+        .css('/src/css/icomoon-fonts.css')
+		.css('/src/css/base.css')
+		.css('/src/css/daniel/view.css')
+		.done({})
+	%>
+</head>
+<body>
+<% include ../share/nav.html %>
+<article>
+	<section>
+		<div class="container clearfix">
+			<div class="aside-wrap">
+				<div class="aside-panel">
+					<div class="portrait">
+						<div class="img-box" data-src="<%= data.head_src %>"></div>	
+					</div>
+					<div class="name"><%= data.name %>/<%= data.code %></div>
+					<div class="github"><%= data.github_url %></div>
+				</div>
+			</div>	
+			<div class="content-wrap">
+				<div class="content-panel">asdf</div>	
+			</div>
+		</div>
+	</section>
+</article>
+<% include ../share/aside.html %>
+<% include ../share/footer.html %>
+<script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script>
+	seajs.config({
+		alias: {
+			'jquery': '/lib/jquery/2.2.0/jquery.js'
+		}
+	});
+	if(location.href.indexOf('dev=1') == -1){
+		seajs.use('/src/js/daniel/view.js');		
+	}else {
+		seajs.use('/dist/daniel/view.min.js');		
+	}
+</script>
+</body>
+</html>
+

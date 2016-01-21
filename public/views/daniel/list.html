@@ -20,24 +20,26 @@
 			<ul class="content-panel clearfix" id="content-panel">
 				<%for(var i=0;i<data.length;i++) {%>
 					<li>
-						<div class="content-box">	
-							<div class="img-wrap"> 
-								<div class="img-box" data-src="<%= data[i].head_src %>"></div>
-								<div class="like-wrap icon-thumbs-up" data-id="<%=data[i]._id%>" data-count="<%=data[i].like_count%>"></div>
+						<div class="like-wrap icon-thumbs-up" data-id="<%=data[i]._id%>" data-count="<%=data[i].like_count%>"></div>
+						<a href="/daniel/view/<%= data[i]._id %>" target="_blank">
+							<div class="content-box">
+								<div class="img-wrap">
+									<div class="img-box" data-src="<%= data[i].head_src %>"></div>
+								</div>
+								<div class="name-wrap text-center"><%= data[i].name %>&nbsp;&nbsp;<small><%= data[i].code %></small></div>
+								<div class="info-wrap clearfix">
+									<div class="block">
+										<span class="icon-github"></span> 
+										<span class="text"><%= data[i].followers %></span>
+									</div>
+									<div class="block">
+										<span class="icon-eye"></span>
+										<span class="text"><%= data[i].visit_count%></span>
+									</div>
+								</div>
 							</div>
-                            <div class="name-wrap text-center"><%= data[i].name %>&nbsp;&nbsp;<small><%= data[i].code %></small></div>
-                            <div class="info-wrap clearfix">
-                                <div class="block">
-                                    <span class="icon-github"></span> 
-                                    <span class="text"><%= data[i].followers %></span>
-                                </div>
-                                <div class="block">
-                                    <span class="icon-eye"></span>
-                                    <span class="text"><%= data[i].visit_count%></span>
-                                </div>
-                            </div>
-						</div>
-					</li>	
+						</a>
+					</li>
 				<%}%>
 			</ul>
 			<div id="load-more-wrap">
@@ -53,23 +55,25 @@
 <script type="text/template" id="list-item-tpl">
     <?for(var i=0;i<list.length;i++){?> 
         <li>
-            <div class="content-box">	
-                <div class="img-wrap"> 
-                    <div class="img-box" data-src="<?= list[i].head_src ?>"></div>
-                    <div class="like-wrap icon-thumbs-up" data-id="<?=list[i]._id?>" data-count="<?=list[i].like_count?>"></div>
-                </div>
-                <div class="name-wrap text-center"><?= list[i].name ?>&nbsp;&nbsp;<small><?= list[i].code ?></small></div>
-                <div class="info-wrap clearfix">
-                    <div class="block">
-                        <span class="icon-github"></span> 
-                        <span class="text"><?= list[i].followers ?></span>
-                    </div>
-                    <div class="block">
-                        <span class="icon-eye"></span>
-                        <span class="text"><?= list[i].visit_count?></span>
-                    </div>
-                </div>
-            </div>
+            <div class="like-wrap icon-thumbs-up" data-id="<?=list[i]._id?>" data-count="<?=list[i].like_count?>"></div>
+			<a href="/daniel/view/<?= list[i]._id ?>" target="_blank">
+				<div class="content-box">	
+					<div class="img-wrap"> 
+						<div class="img-box" data-src="<?= list[i].head_src ?>"></div>
+					</div>
+					<div class="name-wrap text-center"><?= list[i].name ?>&nbsp;&nbsp;<small><?= list[i].code ?></small></div>
+					<div class="info-wrap clearfix">
+						<div class="block">
+							<span class="icon-github"></span> 
+							<span class="text"><?= list[i].followers ?></span>
+						</div>
+						<div class="block">
+							<span class="icon-eye"></span>
+							<span class="text"><?= list[i].visit_count?></span>
+						</div>
+					</div>
+				</div>
+			</a>
         </li>	
     <?}?>
 </script>

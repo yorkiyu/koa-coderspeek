@@ -35,6 +35,7 @@ define(function(require,exports,module){
                 },1000/60);
             })($target);
             addService($target);
+			return false;
         }
         function addService($target){
 			var person_id = $target.attr('data-id');

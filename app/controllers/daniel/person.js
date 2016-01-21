@@ -24,4 +24,16 @@ exports.index = function *(){
 	});	
 }
 
+//view page controller
+exports.view = function *(id){
+	var data = yield Person.findById(id);
+    //读取模板
+	this.body = yield render('daniel/view',{
+		data: data,
+		Loader: loader,
+		config: config,
+		title: '',
+		curpos: 'daniel_view'
+	});
+}
 
