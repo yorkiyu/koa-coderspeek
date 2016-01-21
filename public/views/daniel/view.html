@@ -17,17 +17,36 @@
 <article>
 	<section>
 		<div class="container clearfix">
-			<div class="aside-wrap">
+			<div id="aside-wrap">
 				<div class="aside-panel">
 					<div class="portrait">
 						<div class="img-box" data-src="<%= data.head_src %>"></div>	
 					</div>
-					<div class="name"><%= data.name %>/<%= data.code %></div>
-					<div class="github"><%= data.github_url %></div>
+                    <ul class="score-wrap clearfix">
+                       <li>
+                            <div class=""><%= data.followers %></div>
+                            <div class="title">Followers</div>
+                        </li>  
+                       <li>
+                            <div class=""><%= data.starred %></div>
+                            <div class="title">Starred</div>
+                       </li>  
+                    </ul>
+					<div class="name"><i class="icon-tag"></i>&nbsp;<%= data.name %>&nbsp;<small><%= data.code %></small></div>
+					<div class="github"><i class="icon-github2"></i>&nbsp;<a href="<%= data.github_url %>" target="_blank" title="<%=data.github_url%>"><%= data.github_url %></a></div>
+					<div class="blog"><i class="glyphicon glyphicon-link"></i>&nbsp;<a href="<%= data.blog_url?data.blog_url:'#' %>" target="_blank" title="<%=data.blog_url?data.blog_url:''%>"><%= data.blog_url?data.blog_url:'无' %></a></div>
 				</div>
 			</div>	
-			<div class="content-wrap">
-				<div class="content-panel">asdf</div>	
+			<div id="content-wrap">
+				<div class="content-panel">
+                    <%if(data.introduction){%>
+                        <%= data.introduction %>
+                    <%}else{%>
+                        <div class="empty-wrap text-center">
+                            <div id="empty-btn">暂时没有简介，点击添加吧</div> 
+                        </div>
+                    <%}%>
+                </div>	
 			</div>
 		</div>
 	</section>

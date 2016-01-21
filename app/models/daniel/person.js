@@ -18,6 +18,7 @@ var PersonSchema = new Schema({
 	blog_url: { type: String },
 	open_project: { type: String },
 	books: { type: String },
+    introduction: { type: String},
 	create_at: { type: Date, default: Date.now },
 	update_at: { type: Date, default: Date.now }
 });

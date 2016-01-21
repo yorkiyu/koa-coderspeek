@@ -1,30 +1,74 @@
-.aside-wrap {
+#aside-wrap {
 	width: 25%;
+    min-height: 1px;
 	float: left;
 }
-.content-wrap {
+#content-wrap {
 	width: 75%;
+    min-height: 1px;
 	float: left;
 }
-.content-wrap .content-panel {
-	min-height: 740px;
+#content-wrap .content-panel {
+    padding: 15px;
 	margin-bottom: 25px;
 	background-color: #fff;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
 }
-.aside-wrap .aside-panel {
-	min-height: 740px;
+#content-wrap #empty-btn{
+    display: inline-block;
+    padding: 15px 0;
+    font-size: 1.5em;
+    color: #ababab;
+    cursor: pointer;
+} 
+#content-wrap #empty-btn:hover {
+    color: #999; 
+}
+#aside-wrap .aside-panel {
+    height: 1000px;
 	padding: 15px;
 	background-color: #f7f7f7;
 	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
-.aside-wrap .portrait {
-	width: 80px;
-	height: 80px;
+#aside-wrap .portrait {
+	width: 90px;
+	height: 90px;
 	margin: 0 auto;
 	border-radius: 100%;
 	overflow: hidden;
+}
+#aside-wrap .score-wrap {
+    list-style: none;
+    margin: 0;
+    padding: 15px 0;
+}
+#aside-wrap .score-wrap li {
+    width: 50%;
+    font-size: 1.3em;
+    text-align: center;
+    float: left;
+}
+#aside-wrap .score-wrap li .title {
+    font-size: 0.7em;
+    color: #ababab;
+}
+#aside-wrap a {
+    color: #4078C0;
+}
+#aside-wrap .github,
+#aside-wrap .blog,
+#aside-wrap .name {
+    font-size: 1.15em;
+    line-height: 30px;
+    color: #666;
+    white-space:nowrap;   
+    word-break:keep-all;   
+    overflow:hidden;   
+    text-overflow:ellipsis;  
+}
+#aside-wrap i {
+    color: #555;
 }

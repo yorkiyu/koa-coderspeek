@@ -1,8 +1,18 @@
 body {
+    min-height: 1200px;
 	padding: 0;
 	padding-top: 70px;
 	margin: 0;
 	background-color: #ebebeb;
+}
+a:active,
+a:visited,
+a:hover,
+a:link,
+a {
+	text-decoration: none;
+    color: inherit;
+    border: 0;
 }
 .container {
     position: relative;
