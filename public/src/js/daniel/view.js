@@ -31,6 +31,12 @@ define(function(require,exports,module){
                 }); 
             }); 
             $(window).trigger('scroll');
+			
+			$("#empty-btn").click(function(){
+				require.async('simplemde',function(SimpleMDE){
+					var simplemde = new SimpleMDE({ element: document.getElementById("markdown") });
+				});	
+			});
         }
         function initLayout(){
             $aside_panel.css({

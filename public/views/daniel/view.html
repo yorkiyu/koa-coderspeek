@@ -6,6 +6,7 @@
 		Loader()
 		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
 		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+		.css('/lib/simplemde/1.9.0/css/simplemde.min.css')
         .css('/src/css/icomoon-fonts.css')
 		.css('/src/css/base.css')
 		.css('/src/css/daniel/view.css')
@@ -46,6 +47,7 @@
                             <div id="empty-btn">暂时没有简介，点击添加吧</div> 
                         </div>
                     <%}%>
+					<textarea id="markdown"></textarea>
                 </div>	
 			</div>
 		</div>
@@ -57,7 +59,8 @@
 <script>
 	seajs.config({
 		alias: {
-			'jquery': '/lib/jquery/2.2.0/jquery.js'
+			'jquery': '/lib/jquery/2.2.0/jquery.js',
+			'simplemde': '/lib/simplemde/1.9.0/js/simplemde.min.js'
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){
