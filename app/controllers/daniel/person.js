@@ -27,6 +27,14 @@ exports.index = function *(){
 //view page controller
 exports.view = function *(id){
 	var data = yield Person.findById(id);
+
+	//将json字符串转成json
+	if(data.introduction){
+		var introduction =  JSON.parse(data.introduction);
+		data.html = introduction.html;
+		data.markdown = introduction.markdown;
+	}
+
     //读取模板
 	this.body = yield render('daniel/view',{
 		data: data,

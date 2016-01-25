@@ -1,8 +1,9 @@
 var Services = require("../../services");
 var config = require("../../../config");
+var coBody = require("co-body");
 var loader = require("loader");
-var Person = Services.Person;
-
+var Person = Services.Person; 
+var _ = require("lodash");
 /*	
 	* 点赞，对应记录like_count值加1
 	* @params {string} perid id
@@ -59,13 +60,45 @@ exports.list = function *(){
 	}
 }
 
+/*
+	* 简介保存
+	* @param {Object} introduction
+	* return promise
+*/
+exports.saveIntroduction = function *(){
+	var _id = this.query["id"];
 
+	//查看id是否存在
+	if(!_id){
+		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Params'});
+		return;
+	}
 
+	//数据过滤
+	var data = yield coBody(this,{limit: '2mb'}); 
 
+	//数据检测合法性
+	try{	
+		if(!_.has(data,"html") || !_.has(data,"markdown")){
+			throw new Error('Catch me');
+		}
+		data = JSON.stringify(data);	
+	}catch(e){
+		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Data'});
+		return;
+	}
 
-
-
-
-
+	//跟新introduction的值
+	try{
+		var ret = yield Person.updateById(_id,{introduction: data}); 
+		if(ret){
+			this.body = JSON.stringify({status: true,count: 0,data:'Success'});
+			return;
+		}
+		throw new Error('Catch me');
+	}catch(e){
+		this.body = JSON.stringify({status: false,count: 3,data:'Failed'});
+	}
+}
 
 

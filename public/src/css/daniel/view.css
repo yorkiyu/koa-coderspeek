@@ -14,6 +14,22 @@
 	background-color: #fff;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
+	position: relative;
+}
+#content-wrap .content-panel .edit {
+	width: 30px;
+	height: 30px;
+	font-size: 1.4em;
+	line-height: 30px;
+	font-weight: normal;
+	color: #999;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	cursor: pointer;
+}
+#content-wrap .content-panel .edit:hover {
+	color: #4078C0;
 }
 #content-wrap #empty-btn{
     display: inline-block;
@@ -24,6 +40,9 @@
 } 
 #content-wrap #empty-btn:hover {
     color: #999; 
+}
+#markdown {
+	display: none;
 }
 #aside-wrap .aside-panel {
     height: 1000px;
@@ -72,3 +91,4 @@
 #aside-wrap i {
     color: #555;
 }
+

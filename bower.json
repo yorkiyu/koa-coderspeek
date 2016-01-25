@@ -18,6 +18,7 @@
     "bootstrap": "~3.3.6",
     "seajs": "~3.0.0",
     "ejs": "~1.0.0",
-    "simplemde": "~1.9.0"
+    "simplemde": "~1.9.0",
+    "seajs-css": "*"
   }
 }

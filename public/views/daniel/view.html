@@ -6,7 +6,6 @@
 		Loader()
 		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
 		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
-		.css('/lib/simplemde/1.9.0/css/simplemde.min.css')
         .css('/src/css/icomoon-fonts.css')
 		.css('/src/css/base.css')
 		.css('/src/css/daniel/view.css')
@@ -20,7 +19,7 @@
 		<div class="container clearfix">
 			<div id="aside-wrap">
 				<div class="aside-panel">
-					<div class="portrait">
+					<div class="portrait" id="portrait" data-id="<%= data._id %>">
 						<div class="img-box" data-src="<%= data.head_src %>"></div>	
 					</div>
                     <ul class="score-wrap clearfix">
@@ -39,13 +38,20 @@
 				</div>
 			</div>	
 			<div id="content-wrap">
+				<textarea id="old-markdown" style="display:none"><%= data.markdown?data.markdown:'' %></textarea>
 				<div class="content-panel">
-                    <%if(data.introduction){%>
-                        <%= data.introduction %>
+                    <%if( data.html ){%>
+						<div class="edit text-center" id="edit"><i class="glyphicon glyphicon-pencil"></i></div>
+						<div class="content">
+							<%- data.html %>
+						</div>
                     <%}else{%>
-                        <div class="empty-wrap text-center">
-                            <div id="empty-btn">暂时没有简介，点击添加吧</div> 
-                        </div>
+						<div class="edit text-center hide" id="edit"><i class="glyphicon glyphicon-pencil"></i></div>
+						<div class="content">
+							<div class="empty-wrap text-center">
+								<div id="empty-btn">暂时没有简介，点击添加吧</div> 
+							</div>
+						</div>
                     <%}%>
 					<textarea id="markdown"></textarea>
                 </div>	
@@ -56,11 +62,15 @@
 <% include ../share/aside.html %>
 <% include ../share/footer.html %>
 <script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script src="/lib/seajs/3.0.0/seajs-css/seajs-css.js" type="text/javascript"></script>
 <script>
 	seajs.config({
 		alias: {
 			'jquery': '/lib/jquery/2.2.0/jquery.js',
-			'simplemde': '/lib/simplemde/1.9.0/js/simplemde.min.js'
+			'simplemde': '/lib/simplemde/1.9.0/js/simplemde.min.js',
+			'simplemde-css': '/lib/simplemde/1.9.0/css/simplemde.min.css',
+			'uploadi': '/lib/simplemde/1.9.0/js/widget/uploadi.js',
+			'uploadi-css': '/lib/simplemde/1.9.0/css/widget/uploadi.css'
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){

@@ -20,3 +20,4 @@ exports.findById = function(id,fields){
 exports.updateById = function(id,update){
     return Person.findByIdAndUpdate(id,update).exec();    
 }
+
