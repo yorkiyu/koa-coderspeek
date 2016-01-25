@@ -45,12 +45,18 @@ a {
 .login-btn i {
     color: #cacaca;
 }
+.markdown-img .img-wrap {
+    display: block;
+    margin: 0 auto;
+}
 .img-box{
     width: 100%;
     height: 100%;
     margin: 0 auto;
     background-color: #dbdbdb;
 	overflow: hidden;
+    display: block;
+    position: relative; 
 }
 
 .img-box .img-holderplace {
@@ -66,6 +72,7 @@ a {
 	left: 50%;
 	margin-left: -50px;
 	margin-top: -20px;
+    display: block;
 }
 
 #load-more-wrap {

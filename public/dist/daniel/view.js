@@ -1,84 +1,127 @@
-define("/dist/opensrc/list.min", [ "jquery" ], function(require, exports, module) {
+define("/dist/daniel/view.min", [ "jquery" ], function(require, exports, module) {
     var $ = require("jquery");
     var bootstrap = require("/lib/bootstrap/3.3.6/js/bootstrap.js");
     var lazyload = require("/src/js/common/lazyload.js");
     var constants = require("/src/js/common/constants.js");
     var base = require("/src/js/base.js");
-    var baidu_t = require("/lib/baidu/1.0.5/baiduTemplate.js");
-    baidu_t.template.LEFT_DELIMITER = "<?";
-    baidu_t.template.RIGHT_DELIMITER = "?>";
-    var $content_panel = $("#content-panel");
-    //load more data module
-    var ListModule = function() {
-        var list_item_tpl = $("#list-item-tpl").html(), $load_more_wrap = $("#load-more-wrap");
-        pageno = 2, isRequesting = false, isEmpty = false;
-        function run() {
-            $load_more_wrap.bind("click", function() {
-                nextPage();
-            });
-        }
-        function nextPage() {
-            service();
-        }
-        function service() {
-            if (isRequesting || isEmpty) {
-                return;
-            }
-            isRequesting = true;
-            $load_more_wrap.html(constants.loading);
-            $.ajax({
-                type: "get",
-                url: "/api/opensrc/project/list?pageno=" + pageno,
-                dataType: "json",
-                success: function(ret) {
-                    if (!ret.status) {
-                        $load_more_wrap.html(constants.empty);
-                        isEmpty = true;
-                    } else {
-                        pageno = parseInt(ret.data.pageno) + 1;
-                        var html = createWidget(ret.data);
-                        var $html = $(html);
-                        $content_panel.append($html);
-                        lazyload.push($html.find(".img-box"));
-                        lazyload.emit();
-                        $load_more_wrap.html(constants.more);
-                    }
-                    isRequesting = false;
-                },
-                error: function(ret) {
-                    $load_more_wrap.html(constants.empty);
-                    isEmpty = true;
-                }
-            });
-        }
-        function createWidget(data) {
-            data.projectType = constants.projectType;
-            var html = baidu_t.template(list_item_tpl, data);
-            return html;
-        }
-        return {
-            run: run,
-            nextPage: nextPage
-        };
-    }();
-    //main module
+    var clientInfo = {
+        width: $(window).width(),
+        height: $(window).height()
+    };
+    //main module 
     var MainModule = function() {
+        var $aside_wrap = $("#aside-wrap"), $aside_panel = $aside_wrap.find(".aside-panel");
         function run() {
-            //execute list module
-            ListModule.run();
-            agent();
-            //load img
+            initLayout();
+            $(window).bind("scroll", function() {
+                if ($(window).scrollTop() >= 30) {
+                    $aside_panel.css({
+                        position: "fixed",
+                        top: "50px"
+                    });
+                } else {
+                    $aside_panel.css({
+                        position: "static",
+                        top: "0"
+                    });
+                }
+            }).bind("resize", function() {
+                $aside_panel.css({
+                    width: $aside_wrap.width() + "px"
+                });
+            });
+            $(window).trigger("scroll");
+            EditorModule.run();
+            //加载图片
             lazyload.push($(".img-box"));
             lazyload.emit();
         }
-        function agent() {
-            //event agent
-            $content_panel.bind("click", function(e) {
-                var target = e.target || e.srcElement, $target = $(target);
+        function initLayout() {
+            $aside_panel.css({
+                height: clientInfo.height - 50 + "px",
+                width: $aside_wrap.width() + "px"
             });
         }
-        run();
+        return {
+            run: run
+        };
     }();
+    //editro module 
+    var EditorModule = function() {
+        var Editor = require("/src/js/common/editor.js"), editor = new Editor({
+            id: "markdown",
+            upload_url: "/api/upload/images?type=daniel"
+        });
+        var $editorFooter = $(constants.editorFooter), isInsertFooter = false, $portrait = $("#portrait"), $content_wrap = $("#content-wrap");
+        function run() {
+            //没有内容，占位符事件
+            $("#empty-btn").bind("click", function() {
+                $content_wrap.find(".content").hide();
+                $content_wrap.find("#edit").hide();
+                editor.createEditor(function() {
+                    //回调，插入编辑器底部功能按钮
+                    if (!isInsertFooter) {
+                        $editorFooter.insertAfter(".editor-preview-side");
+                        isInsertFooter = true;
+                    } else {
+                        $editorFooter.show();
+                    }
+                });
+            });
+            //编辑按钮，事件
+            $content_wrap.find("#edit").bind("click", function() {
+                $content_wrap.find(".content").hide();
+                $content_wrap.find("#edit").hide();
+                editor.createEditor(function() {
+                    //回调，插入编辑器底部功能按钮
+                    if (!isInsertFooter) {
+                        $editorFooter.insertAfter(".editor-preview-side");
+                        isInsertFooter = true;
+                    } else {
+                        $editorFooter.show();
+                    }
+                    editor.value($content_wrap.find("#old-markdown").text());
+                });
+            });
+            //编辑器底部按钮事件代理
+            $editorFooter.bind("click", function(e) {
+                var target = e.target || e.srcElement;
+                var $target = $(target);
+                if ($target.hasClass("cancel")) {
+                    if (!confirm("确定取消编辑！")) {
+                        return;
+                    }
+                    $editorFooter.hide();
+                    editor.removeEditor();
+                    $content_wrap.find(".content").show();
+                    $content_wrap.find("#edit").show();
+                } else if ($target.hasClass("save")) {
+                    $target.html(constants.load_img);
+                    editor.save({
+                        url: "/api/daniel/person/saveintro?id=" + $portrait.attr("data-id"),
+                        data: {
+                            html: editor.getHtml(),
+                            markdown: editor.value()
+                        }
+                    }, function(ret) {
+                        if (ret) {} else {
+                            $content_wrap.find(".content").html(editor.getHtml()).show();
+                            $content_wrap.find("#old-markdown").text(editor.value());
+                            $content_wrap.find("#edit").removeClass("hide").show();
+                            $editorFooter.hide();
+                            editor.removeEditor();
+                        }
+                        $target.html("发布");
+                    });
+                }
+            });
+        }
+        return {
+            run: run
+        };
+    }();
+    //run 
+    MainModule.run();
 });
 
 define("/src/js/common/constants-debug", [ "jquery-debug" ], function(require, exports, module) {
@@ -490,6 +533,24 @@ define("/src/js/common/lazyload", [ "jquery" ], function(require, exports, modul
     exports.runLoadImg = runLoadImg;
     exports.emit = function() {
         $(document).trigger("loadimg");
+    };
+});
+
+define("/src/js/common/tpl-debug", [], function(require, exports, module) {
+    module.exports = {
+        more: '<div class="more">加载更多</div>',
+        loading: '<div class="loading"><img src="/images/i_load.gif"/>&nbsp;&nbsp;加载中</div>',
+        empty: '<div class="empty">没有更多内容</div>',
+        errorImg: '<div class="error-img-wrap"><div class="img-wrap"><p><img src=""/></p><p>加载出错</p></div></div>'
+    };
+});
+
+define("/src/js/common/tpl", [], function(require, exports, module) {
+    module.exports = {
+        more: '<div class="more">加载更多</div>',
+        loading: '<div class="loading"><img src="/images/i_load.gif"/>&nbsp;&nbsp;加载中</div>',
+        empty: '<div class="empty">没有更多内容</div>',
+        errorImg: '<div class="error-img-wrap"><div class="img-wrap"><p><img src=""/></p><p>加载出错</p></div></div>'
     };
 });
 

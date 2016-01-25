@@ -3,6 +3,7 @@ define(function(require,exports,module){
 	var bootstrap = require('/lib/bootstrap/3.3.6/js/bootstrap.js');
 	var lazyload = require('/src/js/common/lazyload.js');
     var constants = require('/src/js/common/constants.js');
+	var base = require('/src/js/base.js');
     var baidu_t = require('/lib/baidu/1.0.5/baiduTemplate.js');    
     baidu_t.template.LEFT_DELIMITER='<?';
     baidu_t.template.RIGHT_DELIMITER='?>';

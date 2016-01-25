@@ -8,6 +8,7 @@ module.exports = function(grunt){
 			daniel: { 
 				files: {
 					"public/dist/daniel/list.min.js": ["public/src/js/daniel/list.js"],
+					"public/dist/daniel/view.min.js": ["public/src/js/daniel/view.js"],
 					"public/dist/opensrc/list.min.js": ["public/src/js/opensrc/list.js"]	
 				}	
 			}	
@@ -30,8 +31,27 @@ module.exports = function(grunt){
 					//需要生成具名函数的文件集合
 					'src': [
 						'dist/daniel/list.min.js',
-						'src/js/common/lazyload.js',
-                        'src/js/common/constants.js',
+                        'src/js/common/**/*.js',
+						'lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'lib/baidu/1.0.5/baiduTemplate.js'
+					],
+					//生成存放的文件目录，里面的目录结构与src里面的文件名带有的目录结构一致
+					'dest': 'public/dist/daniel/.build'
+				}]
+			},
+            daniel: {
+				options: {
+					//生成具名函数的id格式
+					idleading: '/'
+				},
+				files: [{
+					'expand': true,
+					//相对路径地址
+					'cwd': 'public',
+					//需要生成具名函数的文件集合
+					'src': [
+						'dist/daniel/view.min.js',
+                        'src/js/common/**/*.js',
 						'lib/bootstrap/3.3.6/js/bootstrap.js',
                         'lib/baidu/1.0.5/baiduTemplate.js'
 					],
@@ -51,8 +71,7 @@ module.exports = function(grunt){
 					//需要生成具名函数的文件集合
 					'src': [
 						'dist/opensrc/list.min.js',
-						'src/js/common/lazyload.js',
-                        'src/js/common/constants.js',
+						'src/js/common/**/*.js',
 						'lib/bootstrap/3.3.6/js/bootstrap.js',
                         'lib/baidu/1.0.5/baiduTemplate.js'
 					],
@@ -76,8 +95,23 @@ module.exports = function(grunt){
 					//合并后的文件地址
 					'public/dist/daniel/list.js': [
 						'public/dist/daniel/.build/dist/daniel/list.min.js',
-						'public/dist/daniel/.build/src/js/common/lazyload.js',
-						'public/dist/daniel/.build/src/js/common/constants.js',
+						'public/dist/daniel/.build/src/js/common/**/*.js',
+						'public/dist/daniel/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
+                        'public/dist/daniel/.build/lib/baidu/1.0.5/baiduTemplate.js',
+						'public/lib/jquery/2.2.0/jquery.js'
+					] 
+				}
+			},
+            daniel: {
+				options: {
+					//是否采用相对地址
+					relative: true
+				},
+				files: {
+					//合并后的文件地址
+					'public/dist/daniel/view.js': [
+						'public/dist/daniel/.build/dist/daniel/view.min.js',
+						'public/dist/daniel/.build/src/js/common/**/*.js',
 						'public/dist/daniel/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
                         'public/dist/daniel/.build/lib/baidu/1.0.5/baiduTemplate.js',
 						'public/lib/jquery/2.2.0/jquery.js'
@@ -93,8 +127,7 @@ module.exports = function(grunt){
 					//合并后的文件地址
 					'public/dist/opensrc/list.js': [
 						'public/dist/opensrc/.build/dist/opensrc/list.min.js',
-						'public/dist/opensrc/.build/src/js/common/lazyload.js',
-						'public/dist/opensrc/.build/src/js/common/constants.js',
+						'public/dist/opensrc/.build/src/js/common/**/*.js',
 						'public/dist/opensrc/.build/lib/bootstrap/3.3.6/js/bootstrap.js',
                         'public/dist/opensrc/.build/lib/baidu/1.0.5/baiduTemplate.js',
 						'public/lib/jquery/2.2.0/jquery.js'
@@ -110,6 +143,7 @@ module.exports = function(grunt){
 			daniel: {
 				files: {
 					'public/dist/daniel/list.min.js': ['public/dist/daniel/list.js'],	
+					'public/dist/daniel/view.min.js': ['public/dist/daniel/view.js'],	
 					'public/dist/opensrc/list.min.js': ['public/dist/opensrc/list.js']	
 				}	
 			}	
@@ -130,5 +164,5 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.registerTask('build',['copy','transport','concat','uglify']);
+	grunt.registerTask('build',['copy','transport','concat','uglify','clean']);
 }

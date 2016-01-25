@@ -15,6 +15,10 @@
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
 	position: relative;
+    overflow: hidden;
+}
+#content-wrap .content-panel .content img{
+    max-width: 100%;
 }
 #content-wrap .content-panel .edit {
 	width: 30px;

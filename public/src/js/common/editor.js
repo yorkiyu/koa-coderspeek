@@ -2,6 +2,17 @@ define(function(require,exports,module){
     var $ = require('jquery');
 	var constants = require("/src/js/common/constants.js");
 	var simplemde = null,isSaving = false,_this;
+
+    //define markdown html format
+    function redefineRender(){
+        if(!simplemde){
+            return; 
+        } 
+        simplemde.renderer.image = function(href,title,text){
+            var html = '<p class="markdown-img"><span class="img-box" data-src="'+href+'"><span class="img-holderplace">技术说</span></span></p>';    
+            return html; 
+        } 
+    }
 	function Editor(opt){
 		_this = this;
 		_this.options = opt || {};
@@ -36,6 +47,7 @@ define(function(require,exports,module){
 				}
 			});
 			callback && callback();
+            //redefineRender();
 		});	
 	}
 	Editor.prototype.value = function(val){
