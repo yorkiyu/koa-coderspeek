@@ -1,5 +1,5 @@
 var models = require('../../models');
-var Project = models.Project;
+var Note = models.Note;
 
 /* 
 	* 根据条件获取数据
@@ -12,11 +12,9 @@ exports.findAll = function(conditions,fields,options){
     conditions = conditions || null;
 	fields = fields || null;
 	options = options || null;
-    return Project.find(conditions,fields,options).exec();
+    return Note.find(conditions,fields,options).exec();
 }
 
-exports.findById = function(id,fields){
-	return Project.findById(id,fields).exec();
+exports.findByProjectId = function(projectId,fields){
+    return Note.findOne({projectId: projectId},fields).exec();
 }
-
-

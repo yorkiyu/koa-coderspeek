@@ -14,8 +14,10 @@ mongoose.connect(config.db, {
 //models
 require('./daniel/person');
 require('./opensrc/project');
+require('./opensrc/note');
 exports.Person = mongoose.model('Person');
 exports.Project = mongoose.model('Project');
+exports.Note = mongoose.model('Note');
 
 
 
