@@ -34,10 +34,7 @@ define(function(require,exports,module){
             }); 
             $(window).trigger('scroll');
 			EditorModule.run();
-            
-            //加载图片
-            lazyload.push($(".img-box"));
-            lazyload.emit();
+            conImages(); 
         }
         function initLayout(){
             $aside_panel.css({
@@ -45,8 +42,28 @@ define(function(require,exports,module){
                 'width': $aside_wrap.width() + 'px'
             }); 
         }
+        //设置图片占位符，初始化图片延时加载
+        function conImages(){
+            var $content_wrap = EditorModule.get$conwrap();
+            $content_wrap.find(".img-box").each(function(){
+                var $_this = $(this);
+                var data_src = $_this.attr("data-src");
+                var img_w = base.getParam("img_w",data_src),
+                    img_ratio = base.getParam("img_ratio",data_src),
+                    box_w = $content_wrap.find(".content-panel").width();
+                $_this.parents(".img-wrap:eq(0)").css({
+                    width:  img_w>box_w?'100%':img_w + 'px',
+                    height: img_w>box_w?box_w*img_ratio:img_w*img_ratio
+                });
+            });
+            
+            //加载图片
+            lazyload.push($(".img-box"));
+            lazyload.emit();
+        } 
         return {
-            run: run 
+            run: run,
+            conImages: conImages
         }
     }();
 
@@ -81,6 +98,9 @@ define(function(require,exports,module){
 				}
 			});
 		}
+        function get$conwrap(){
+            return $content_wrap; 
+        }
         function emptyEditHandler(){
             $content_wrap.find(".content").hide();
             $content_wrap.find("#edit").hide();
@@ -132,6 +152,8 @@ define(function(require,exports,module){
                             
                 }else {
                     $content_wrap.find(".content").html(html).show();		
+                    //设置图片占位符
+                    MainModule.conImages();
                     $content_wrap.find("#old-markdown").text(markdown);
                     $content_wrap.find("#edit").removeClass("hide").show();
                     $editorFooter.hide();
@@ -140,9 +162,11 @@ define(function(require,exports,module){
                 $target.html("发布");
             });
         }
+
+        //对markdown生成的html进行格式化
         function htmlFormat(html){
             var $html = $("<div>"+html+"</div>");
-            var destHtml = '<span class="img-wrap"><span class="img-box"><span class="img-holderplace"><i class="glyphicon glyphicon-picture"></i></span></span></span>';
+            var destHtml = '<span class="img-wrap"><span class="img-box"><span class="img-holderplace" title="技术说"><i class="glyphicon glyphicon-picture"></i></span></span></span>';
             $html.find("img[src]").each(function(){
                 var $_this = $(this),
                     $destHtml = $(destHtml);
@@ -153,13 +177,12 @@ define(function(require,exports,module){
             return $html.html();
         }
 		return {
-			run: run	
+			run: run,
+            get$conwrap: get$conwrap
 		}	
 	}();
 
     //run 
     MainModule.run();
 });
-
-
 

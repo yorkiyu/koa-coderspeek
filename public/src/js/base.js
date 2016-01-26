@@ -3,20 +3,21 @@ define(function(require,exports,module){
 	
 	//go top
 	(function(){
-		var tipsTimer = null,gotopTimer = null,isVisble = false;
+		var tipsTimer = null,gotopTimer = null,isVisble = false,isShow = false;
 		$gotop_tips = $(constants.goTopTips);
 		$(window).bind("scroll",function(){
 			if($(window).scrollTop() > constants.clientInfo.height * (2 / 3)){
-				if(isVisble){
+				if(isVisble || isShow){
 					return;	
 				}
 				isVisble = true;	
+                isShow = true;
 				$("body").append($gotop_tips);
 				clearInterval(tipsTimer);
 				tipsTimer = setTimeout(function(){
 					isVisble && $gotop_tips.remove();	
 					isVisble = false;
-				},2000);
+				},6000);
 			}else {
 				isVisble && $gotop_tips.remove();	
 				isVisble = false;
@@ -34,4 +35,14 @@ define(function(require,exports,module){
 			$(window).scrollTop(0);
 		});	
 	})();
+    
+    var Utils = { 
+        getParam: function(name,source){
+            var pattern = new RegExp("(\\?|#|&)" + name + "=([^&#]*)");
+            var m = (source || window.location.href).match(pattern);
+            return (!m?"":m[2]);
+        }  
+    }
+
+    module.exports = Utils;
 });

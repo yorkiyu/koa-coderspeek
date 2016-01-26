@@ -1,8 +1,9 @@
 var parse = require('co-busboy');
 var path = require('path');
+var logger = require('../../common/logger');
 var fs = require('fs');
 var config = require("../../config");
-var sizeOf = require('image-size');
+var koaImage = require("koa-image");
 
 //图片上传服务端接收
 exports.images = function *(){
@@ -31,29 +32,22 @@ exports.images = function *(){
 	var part,dimensions,dir = path.join(__dirname,'../../','upload',type);
 	while (part = yield parts) {
         var file_name =  new Date().getTime()+extname;
-        fs.exists(dir,function(exists){
-            if(!exists){
-                fs.mkdir(dir,function(){
-                    var stream = fs.createWriteStream(path.join(dir, file_name));
-                    part.pipe(stream);
-                    console.log('uploading %s -> %s', part.filename, stream.path);
-                });  
-            }else {
-                var stream = fs.createWriteStream(path.join(dir, file_name));
-                part.pipe(stream);
-                console.log('uploading %s -> %s', part.filename, stream.path);
-            } 
-        });
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir); 
+        }
+        var stream = fs.createWriteStream(path.join(dir, file_name));
+        part.pipe(stream);
+        logger.info('uploading %s -> %s', part.filename, stream.path);
 	}
-    sizeOf(path.join(dir,file_name),function(err,dimensions){
-        var url_query = "?img_w="+dimensions.width+"&img_ratio="+(dimensions.height/dimensions.width);
-        console.log(url_query);
-    });
+
+    var dimensions = yield koaImage.getSize(path.join(dir,file_name));
+    var url_query = "?img_w="+dimensions.width+"&img_ratio="+(dimensions.height/dimensions.width);
+
 	this.type = 'text/html';
 	var data = JSON.stringify({
 		status: true,
 		count: 0,
-		data: path.join('/',type,file_name) 
+		data: path.join('/',type,file_name+url_query) 
 	});
 	this.body = '<div id="result">'+data+'</div>';
 }
