@@ -41,8 +41,11 @@ define(function(require,exports,module){
             var pattern = new RegExp("(\\?|#|&)" + name + "=([^&#]*)");
             var m = (source || window.location.href).match(pattern);
             return (!m?"":m[2]);
-        }  
+        },
+        clientInfo: {
+            width: $(window).width(),
+            height: $(window).height()
+        }
     }
-
     module.exports = Utils;
 });

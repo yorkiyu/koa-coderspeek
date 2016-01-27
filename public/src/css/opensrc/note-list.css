@@ -1,0 +1,28 @@
+#aside-wrap {
+	width: 25%;
+    min-height: 1px;
+	float: left;
+}
+#aside-wrap .aside-panel {
+    height: 1000px;
+	padding: 15px;
+	background-color: #f7f7f7;
+	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+#content-wrap {
+	width: 75%;
+    min-height: 1px;
+	float: left;
+}
+#content-wrap .content-panel {
+    padding: 15px;
+	margin-bottom: 25px;
+	background-color: #fff;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	position: relative;
+    overflow: hidden;
+}
+

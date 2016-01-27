@@ -4,10 +4,6 @@ define(function(require,exports,module){
 	var lazyload = require('/src/js/common/lazyload.js');
     var constants = require('/src/js/common/constants.js');
 	var base = require('/src/js/base.js');
-    var clientInfo = {
-        width: $(window).width(),
-        height: $(window).height()
-    }
     //main module 
     var MainModule =  function(){
         var $aside_wrap = $("#aside-wrap"),
@@ -38,7 +34,7 @@ define(function(require,exports,module){
         }
         function initLayout(){
             $aside_panel.css({
-                'height': clientInfo.height - 50 + 'px',
+                'height': base.clientInfo.height - 50 + 'px',
                 'width': $aside_wrap.width() + 'px'
             }); 
         }

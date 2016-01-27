@@ -16,9 +16,17 @@
 <% include ../share/nav.html %>
 <article>
 	<section>
-		<div class="container">
-	        <%= data %>	
-        </div>
+		<div class="container clearfix">
+            <div id="aside-wrap">
+                <div class="aside-panel">
+                    <%=data[0]%>                
+                </div>    	        	
+            </div>	
+			<div id="content-wrap">
+                <div class="content-panel">
+                    <%=data[1]%>                
+                </div>
+            </div>
 	</section>
 </article>
 <% include ../share/aside.html %>

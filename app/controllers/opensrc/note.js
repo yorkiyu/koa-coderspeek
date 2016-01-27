@@ -16,7 +16,7 @@ exports.index = function *(id){
         Project.findById(id),
         Note.findAll({projectId: id},null,{limit: config.page_size,skip: page_size * (pageno-1)})
     ];
-    
+    console.log(data);    
     //读取模板
 	this.body = yield render('opensrc/note_list',{
 		data: data,
