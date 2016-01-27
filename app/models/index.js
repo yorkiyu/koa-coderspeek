@@ -18,6 +18,7 @@ require('./opensrc/note');
 exports.Person = mongoose.model('Person');
 exports.Project = mongoose.model('Project');
 exports.Note = mongoose.model('Note');
+exports.mongoose = mongoose;
 
 
 

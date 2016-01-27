@@ -1,9 +1,8 @@
 var config = require("../config");
 var models = require("../app/models");
 var async = require('async');
-var mongoose = require("mongoose");
-var Note = mongoose.model("Note"); 
-var Project = mongoose.model("Project");
+var Note = models.Note; 
+var Project = models.Project;
 
 var data = [
     {
@@ -39,10 +38,13 @@ Project.findOne({name: "jquery"},'_id',null,function(error,ret){
         data[i].projectId = ret._id;
     }
     async.each(data,function(item){
-        Note.create(item,function(error,data){
+        Note.create(item,function(error,ret){
             if(error) console.log(error); 
+			console.log(ret);
         });
     });
-    mongoose.disconnect();
+	setTimeout(function(){
+		models.mongoose.disconnect();
+	},1000);
 });
 
