@@ -19,13 +19,29 @@
 		<div class="container clearfix">
             <div id="aside-wrap">
                 <div class="aside-panel">
-                    <%=data[0]%>                
+                    <div class="base-info-wrap text-center">
+                        <h2 ><%= data[0].name %></h2>
+                        <ul class="score-wrap clearfix">
+                            <li class="visit-wrap ">
+                                <div class="num"><%= data[0].visit_count %></div>
+                                <div class="title">访问数</div>
+                            </li> 
+                            <li class="like-wrap">
+                                <div class="num"><%= data[0].like_count %></div>
+                                <div class="title">点赞数</div>
+                            </li> 
+                        </ul>
+                    </div>  
                 </div>    	        	
             </div>	
 			<div id="content-wrap">
-                <div class="content-panel">
-                    <%=data[1]%>                
-                </div>
+                <ul class="content">
+                    <%for(var i = 0;i<data[1].length;i++){%>
+                        <li>
+                            <h5><%= data[1][i].title %></h5>
+                        </li>
+                    <%}%>
+                </ul>
             </div>
 	</section>
 </article>

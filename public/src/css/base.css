@@ -162,3 +162,158 @@ a {
 	right: 15px;
 	cursor: pointer;
 }
+
+/**登陆**/
+.login-layer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.15);
+}
+.login-layer .login-panel {
+    width: 520px;
+    height: 410px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -260px;
+    margin-top: -205px;
+}
+.login-layer .login-panel h2 {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+.login-layer .login-panel .content {
+    width: 100%;
+    height: 100%;
+    padding: 0 100px;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+    transition: all 300ms ease-in-out;
+}
+.login-layer .content .close {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+    font-size: 1.6em;
+    line-height: 36px;
+    cursor: pointer;
+}
+.login-layer .holder .title{
+    font-size: 1.2em;
+    color: #999;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+.login-layer .holder .title:before {
+    content: "";
+    border-top: 1px solid #ededed;
+    display: block;
+    position: absolute;
+    width: 70px;
+    top: 8px;
+    left: 0;
+}
+.login-layer .holder .title:after {
+     content: "";
+     border-top: 1px solid #ededed;
+     display: block;
+     position: absolute;
+     width: 70px;
+     top: 8px;
+     right: 0;
+}
+.login-layer .holder .third-port {
+    font-size: 2.8em;
+    cursor: pointer;
+}
+.login-layer .login-form {
+    margin-top: 15px;
+}
+.login-layer .login-form input {
+    margin-bottom: 10px;
+}
+.login-layer .code-wrap .left-box {
+    width: 40%;
+    float: left;
+}
+.login-layer .code-wrap .right-box {
+    width: 60%;
+    float: right;
+}
+.login-layer .switch-back {
+    margin-top: 5px;
+}
+.login-layer .switch-back .left-box{
+    width: 25%;
+    padding: 5px 0;
+    float: left;
+    cursor: pointer;
+}
+.login-layer .switch-back .right-box {
+    width: 75%;
+    padding: 5px 0;
+    float: left;
+    cursor: pointer; 
+}
+
+/**animate**/
+.flip.flip-out {
+  -webkit-transform: rotate3d(0,1,0,-90deg) scale(.9);
+    -webkit-animation-name: flipouttoleft;
+      -webkit-animation-duration: 175ms;
+        transform: rotate3d(0,1,0,-90deg) scale(.9);
+          animation-name: flipouttoleft;
+            animation-duration: 175ms;
+}
+.flip {
+  -webkit-backface-visibility: hidden;
+    -webkit-transform: translateX(0);
+      backface-visibility: hidden;
+        transform: translateX(0);
+}
+.flip-out {
+  -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 225ms;
+      animation-timing-function: ease-in;
+        animation-duration: 225ms;
+}
+.flip-in {
+  -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 350ms;
+      animation-timing-function: ease-out;
+        animation-duration: 350ms;
+}
+.flip.flip-in {
+  -webkit-animation-name: flipintoright;
+    -webkit-animation-duration: 225ms;
+      animation-name: flipintoright;
+        animation-duration: 225ms;
+}
+@-webkit-keyframes flipouttoleft {
+    from { -webkit-transform: rotate3d(0,1,0,0deg); }
+    to { -webkit-transform: rotate3d(0,1,0,-90deg) scale(.9); }
+}
+@keyframes flipouttoleft {
+    from { transform: rotate3d(0,1,0,0); }
+    to { transform: rotate3d(0,1,0,-90deg) scale(.9); }
+}
+@-webkit-keyframes flipintoright {
+    from { -webkit-transform: rotate3d(0,1,0,90deg) scale(.9); }
+    to { -webkit-transform: rotateY(0); }
+}
+@keyframes flipintoright {
+    from { transform: rotate3d(0,1,0,90deg) scale(.9); }
+    to { transform: rotateY(0); }
+}

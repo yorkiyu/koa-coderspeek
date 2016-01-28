@@ -6,7 +6,7 @@ var ObjectId = Schema.ObjectId;
 
 var NoteSchema = new Schema({
     projectId: { type: ObjectId },
-    summary: { type: String },
+    title: { type: String },
 	like_count: { type: Number,default: 0 },
 	visit_count: { type: Number,default: 0 },
     content: { type: String },

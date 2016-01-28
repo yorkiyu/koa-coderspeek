@@ -36,6 +36,37 @@ define(function(require,exports,module){
 		});	
 	})();
     
+    //login 
+    (function(){
+        var $login_layer = $("#login-layer"),
+            $go_register = $login_layer.find("#go-register"),
+            $go_login = $login_layer.find("#go-login"),
+            $go_flip = $login_layer.find(".go-flip"),
+            $login = $login_layer.find("#login"),
+            $content = $login_layer.find(".content");
+
+        var eleBack = null,
+            eleFront = null;
+        function funBackOrFront(){
+            $content.each(function() {
+                if ($(this).hasClass("flip-out")) {
+                    eleBack = $(this);
+                } else {
+                    eleFront = $(this);
+                }
+            });
+        }
+        funBackOrFront();
+        $go_flip.bind("click",function(){
+            eleFront.addClass("flip-out").removeClass("flip-in");
+            setTimeout(function() {
+                eleBack.addClass("flip-in").removeClass("flip-out");
+                funBackOrFront();
+            }, 225);
+            return false;
+        });
+    })();
+
     var Utils = { 
         getParam: function(name,source){
             var pattern = new RegExp("(\\?|#|&)" + name + "=([^&#]*)");

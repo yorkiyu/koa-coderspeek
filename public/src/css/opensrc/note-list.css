@@ -1,15 +1,7 @@
-#aside-wrap {
-	width: 25%;
-    min-height: 1px;
-	float: left;
-}
-#aside-wrap .aside-panel {
-    height: 1000px;
-	padding: 15px;
-	background-color: #f7f7f7;
-	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
-	border-top-left-radius: 3px;
-	border-bottom-left-radius: 3px;
+ul,li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 #content-wrap {
 	width: 75%;
@@ -25,4 +17,37 @@
 	position: relative;
     overflow: hidden;
 }
+#content-wrap .content {
+         
+}
+#content-wrap .content li {
+    margin-bottom: 8px;
+    padding: 15px; 
+    border: 1px solid #ebebeb;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,.1);
+    background-color: #fff;
+    cursor: pointer;
+}
 
+#aside-wrap {
+	width: 25%;
+    min-height: 1px;
+	float: left;
+}
+#aside-wrap .aside-panel {
+    height: 1000px;
+	padding: 15px;
+	background-color: #f7f7f7;
+	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.aside-panel .base-info-wrap h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.aside-panel .base-info-wrap .score-wrap li{
+    width: 50%;
+    float: left;
+}
