@@ -173,6 +173,7 @@ a {
     bottom: 0;
     right: 0;
     background-color: rgba(0,0,0,.15);
+	z-index: 100;
 }
 .login-layer .login-panel {
     width: 520px;
@@ -197,7 +198,6 @@ a {
     border: 1px solid #ebebeb;
     border-radius: 5px;
     box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
-    transition: all 300ms ease-in-out;
 }
 .login-layer .content .close {
     width: 36px;
@@ -255,6 +255,9 @@ a {
 .login-layer .switch-back {
     margin-top: 5px;
 }
+.login-layer .switch-back .go-flip {
+	cursor: pointer;
+}
 .login-layer .switch-back .left-box{
     width: 25%;
     padding: 5px 0;
@@ -302,8 +305,12 @@ a {
         animation-duration: 225ms;
 }
 @-webkit-keyframes flipouttoleft {
-    from { -webkit-transform: rotate3d(0,1,0,0deg); }
-    to { -webkit-transform: rotate3d(0,1,0,-90deg) scale(.9); }
+    from { 
+		-webkit-transform: rotate3d(0,1,0,0deg); 
+	}
+    to { 
+		-webkit-transform: rotate3d(0,1,0,-90deg) scale(.9); 
+	}
 }
 @keyframes flipouttoleft {
     from { transform: rotate3d(0,1,0,0); }
