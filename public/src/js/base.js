@@ -43,8 +43,8 @@ define(function(require,exports,module){
             $go_login = $login_layer.find("#go-login"),
             $go_flip = $login_layer.find(".go-flip"),
             $login = $login_layer.find("#login"),
-            $content = $login_layer.find(".content");
-
+            $content = $login_layer.find(".content"),
+            $login_btn = $("#login-btn");
         var eleBack = null,
             eleFront = null;
         function funBackOrFront(){
@@ -57,13 +57,27 @@ define(function(require,exports,module){
             });
         }
         funBackOrFront();
-        $go_flip.bind("click",function(){
-            eleFront.addClass("flip-out").removeClass("flip-in");
-            setTimeout(function() {
-                eleBack.addClass("flip-in").removeClass("flip-out");
-                funBackOrFront();
-            }, 225);
-            return false;
+        $login_layer.bind("click",function(e){
+            var target = e.target || e.srcElement,
+                $target = $(target);
+            if($target.hasClass("login-layer")){
+                $login_layer.removeClass("show").addClass("hide")      
+            }else if($target.hasClass("close") || $target.parents(".close").length > 0){
+                $login_layer.removeClass("show").addClass("hide")      
+            }else if($target.hasClass("go-flip")){
+                eleFront.addClass("flip-out").removeClass("flip-in");
+                setTimeout(function() {
+                    eleBack.addClass("flip-in").removeClass("flip-out");
+                    funBackOrFront();
+                }, 225);
+            }
+        });
+        $login_btn.bind("click",function(){
+            if($login_layer.hasClass("hide")){
+                $login_layer.removeClass("hide").addClass("show")      
+            }else {
+                $login_layer.removeClass("show").addClass("hide")      
+            } 
         });
     })();
 

@@ -25,6 +25,13 @@ module.exports = {
     cookie_sign: ['koa','coderspeek'],
 	//日志
 	logfile: 'storage/logs/cheese.log',
+
+    //auth
+    github: {
+        clientID: '10bd9e6edd19bff27d67',
+        clientSecret: 'a3dcd5328c050aa995ef198eb924c3acb741e1cb',
+        callbackURL: 'http://yuon.nat123.net:22899/auth/github/callback' 
+    },
 	
 	//分页
 	page_size: 3,

@@ -1,6 +1,5 @@
 var Services = require("../../services");
 var config = require("../../../config");
-var coBody = require("co-body");
 var loader = require("loader");
 var Person = Services.Person; 
 var _ = require("lodash");
@@ -73,9 +72,9 @@ exports.saveIntroduction = function *(){
 		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Params'});
 		return;
 	}
-
-	//数据过滤
-	var data = yield coBody(this,{limit: '2mb'}); 
+	
+    //post数据
+	var data = this.request.body; 
 
 	//数据检测合法性
 	try{	

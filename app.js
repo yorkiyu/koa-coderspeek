@@ -4,17 +4,26 @@ var klogger = require('koa-logger');
 var logger = require('./common/logger');
 var router = require('./app/router'); 
 var kstatic = require('koa-static');
+var bodyParser = require('koa-bodyparser'); 
+var passport = require('koa-passport');
 var favicon = require('koa-favicon');
 var path = require('path');
 var session = require('koa-generic-session');
 var redisStore = require('koa-redis');
-
 var koa = require('koa');
 require("./app/middlewares/mongoose_log");
 require("./app/models");
 
 var app = koa();
 app.use(klogger());
+
+//favicon 
+app.use(favicon(__dirname+'/favicon.ico'));
+//load static file
+app.use(kstatic(path.join(__dirname,'upload')));
+app.use(kstatic(path.join(__dirname,'public')));
+
+app.use(bodyParser());
 
 //set cookie sign
 app.keys = config.cookie_sign;
@@ -23,12 +32,11 @@ app.use(session({
     store: redisStore()
 }));
 
-//favicon 
-app.use(favicon(__dirname+'/favicon.ico'));
+//auth
+require('./app/controllers/sign/auth');
+app.use(passport.initialize());
+app.use(passport.session());
 
-//load static file
-app.use(kstatic(path.join(__dirname,'upload')));
-app.use(kstatic(path.join(__dirname,'public')));
 
 //route 
 router(app);
