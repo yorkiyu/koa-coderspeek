@@ -19,7 +19,8 @@ exports.index = function *(){
 		Loader: loader,
 		config: config,
 		title: '开源项目-技术说',
-		curpos: 'opensrc_list'
+		curpos: 'opensrc_list',
+		curuser: this.session && this.session.passport && this.session.passport.user
 	});	
 }
 

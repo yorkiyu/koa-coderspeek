@@ -12,4 +12,7 @@ exports.index = function *(){
 	});	
 }
 
-
+exports.signout = function *(){
+	this.session = null;
+	this.redirect('back');
+}

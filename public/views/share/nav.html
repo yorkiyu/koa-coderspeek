@@ -16,11 +16,25 @@
 		<%}%>
 	  </ul>
 	</div><!-- /.navbar-collapse -->
-    <div class="login-wrap">
-        <div class="login-btn" id="login-btn">
-            <i class="glyphicon glyphicon-user"></i>
-            登陆/注册
-        </div>  
-    </div>
+	<%if(!curuser){%>
+		<div class="login-wrap" id="login-wrap">
+			<div class="login-btn" id="login-btn">
+				<i class="glyphicon glyphicon-user"></i>
+				登陆/注册
+			</div>  
+		</div>
+	<%}else{%>
+		<div class="login-wrap clearfix" id="login-wrap"  data-id="<%= curuser._id %>">
+			<div class="info">	
+				<div class="portrait img-circle">
+					<div class="img-box" data-src="<%= curuser.avatar_url %>"></div>	
+				</div>
+				<div class="username"><%= curuser.username %></div>
+			</div>
+			<div class="operation-panel">
+				<div class="item"><a href="/signout">退出</a></div>	
+			</div>
+		</div>	
+	<%}%>
   </div><!-- /.container-fluid -->
 </nav>

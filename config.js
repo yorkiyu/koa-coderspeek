@@ -30,7 +30,7 @@ module.exports = {
     github: {
         clientID: '10bd9e6edd19bff27d67',
         clientSecret: 'a3dcd5328c050aa995ef198eb924c3acb741e1cb',
-        callbackURL: 'http://yuon.nat123.net:22899/auth/github/callback' 
+        callbackURL: 'http://localhost:3000/auth/github/callback' 
     },
 	
 	//分页

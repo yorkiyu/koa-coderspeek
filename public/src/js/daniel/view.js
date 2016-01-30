@@ -4,6 +4,7 @@ define(function(require,exports,module){
 	var lazyload = require('/src/js/common/lazyload.js');
     var constants = require('/src/js/common/constants.js');
 	var base = require('/src/js/base.js');
+	var login = require('/src/js/login.js');
     //main module 
     var MainModule =  function(){
         var $aside_wrap = $("#aside-wrap"),
@@ -77,10 +78,20 @@ define(function(require,exports,module){
 		function run(){
 			//没有内容，占位符事件
 			$("#empty-btn").bind("click",function(){
+				//权限验证
+				if(!login.isAuth()){
+					login.loginEmit();	
+					return;
+				}
 		        emptyEditHandler();					
             });
 			//编辑按钮，事件
 			$content_wrap.find("#edit").bind("click",function(){
+				//权限验证
+				if(!login.isAuth()){
+					login.loginEmit();	
+					return;
+				}
 	            editHandler();		
             });
 			//编辑器底部按钮事件代理

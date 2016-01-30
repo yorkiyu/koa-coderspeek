@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ./share/header.html %>
+	<%-
+		Loader()
+		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+        .css('/src/css/icomoon-fonts.css')
+		.css('/src/css/base.css')
+		.done({})
+	%>
+</head>
+<body>
+<% include ./share/nav.html %>
+<article>
+	<section>
+		<div class="container">
+			<h3 class="text-center">
+				Coderspeek Not Found! Status: HTTP 404!
+			</h3>
+		</div>
+	</section>	
+</article>
+<% include ./share/footer.html %>
+<% include ./share/login.html %>
+</body>
+</html>
+

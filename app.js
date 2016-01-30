@@ -2,6 +2,7 @@ require("colors");
 var config = require('./config.js');
 var klogger = require('koa-logger');
 var logger = require('./common/logger');
+var notfound = require('./app/middlewares/notfound');
 var router = require('./app/router'); 
 var kstatic = require('koa-static');
 var bodyParser = require('koa-bodyparser'); 
@@ -19,6 +20,10 @@ app.use(klogger());
 
 //favicon 
 app.use(favicon(__dirname+'/favicon.ico'));
+
+//404
+app.use(notfound.error);
+
 //load static file
 app.use(kstatic(path.join(__dirname,'upload')));
 app.use(kstatic(path.join(__dirname,'public')));
@@ -33,7 +38,7 @@ app.use(session({
 }));
 
 //auth
-require('./app/controllers/sign/auth');
+require('./app/middlewares/auth');
 app.use(passport.initialize());
 app.use(passport.session());
 

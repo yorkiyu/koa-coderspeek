@@ -4,6 +4,7 @@ define(function(require,exports,module){
 	var lazyload = require('/src/js/common/lazyload.js');
     var constants = require('/src/js/common/constants.js');
 	var base = require('/src/js/base.js');
+	var login = require('/src/js/login.js');
 
     var baidu_t = require('/lib/baidu/1.0.5/baiduTemplate.js');    
     baidu_t.template.LEFT_DELIMITER='<?';

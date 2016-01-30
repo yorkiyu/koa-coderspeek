@@ -23,7 +23,8 @@ exports.index = function *(id){
 		Loader: loader,
 		config: config,
 		title: '开源笔记-技术说',
-		curpos: 'opensrc_notelist'
+		curpos: 'opensrc_notelist',
+		curuser: this.session && this.session.passport && this.session.passport.user
 	});	
 }
 

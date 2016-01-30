@@ -10,17 +10,17 @@ exports.index = function *(){
 	var pageno = this.request.query.pageno;
 	pageno = pageno || config.pageno;
 	var page_size = config.page_size;
-
 	//读取数据
     var data = yield Person.findAll(null,'name code followers visit_count like_count _id head_src',{limit: config.page_size,skip: page_size * (pageno-1)});
-    console.log(this.session);	
-    //读取模板
+    
+	//读取模板
 	this.body = yield render('daniel/list',{
 		data: data,
 		Loader: loader,
 		config: config,
 		title: '大牛-技术说',
-		curpos: 'daniel_list'
+		curpos: 'daniel_list',
+		curuser: this.session && this.session.passport && this.session.passport.user
 	});	
 }
 
@@ -41,7 +41,8 @@ exports.view = function *(id){
 		Loader: loader,
 		config: config,
 		title: '',
-		curpos: 'daniel_view'
+		curpos: 'daniel_view',
+		curuser: this.session && this.session.passport && this.session.passport.user
 	});
 }
 

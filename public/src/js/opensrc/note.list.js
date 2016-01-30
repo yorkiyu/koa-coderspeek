@@ -4,6 +4,7 @@ define(function(require,exports,module){
 	var lazyload = require('/src/js/common/lazyload.js');
     var constants = require('/src/js/common/constants.js');
 	var base = require('/src/js/base.js');
+	var login = require('/src/js/login.js');
     
     //main module 
     var MainModule =  function(){

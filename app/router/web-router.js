@@ -11,13 +11,13 @@ module.exports = function(app){
 	app.use(route.get('/', person.index));
 
     //login
-	app.use(route.get('/sign/login', sign.index));
+	app.use(route.get('/signout', sign.signout));
     app.use(route.get('/auth/github',
       passport.authenticate('github')
     ));
     app.use(route.get('/auth/github/callback',
       passport.authenticate('github', {
-        successRedirect: '/',
+        successRedirect: 'back',
         failureRedirect: '/failed'
       })
     ));
