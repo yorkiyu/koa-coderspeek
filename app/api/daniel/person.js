@@ -2,6 +2,7 @@ var Services = require("../../services");
 var config = require("../../../config");
 var loader = require("loader");
 var Person = Services.Person; 
+var auth = require("../../middlewares/auth");
 var _ = require("lodash");
 /*	
 	* 点赞，对应记录like_count值加1
@@ -65,6 +66,12 @@ exports.list = function *(){
 	* return promise
 */
 exports.saveIntroduction = function *(){
+	//权限检查
+	if(!auth.isAuth()){
+		this.type = 'json';
+		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
+		return;	
+	}
 	var _id = this.query["id"];
 
 	//查看id是否存在

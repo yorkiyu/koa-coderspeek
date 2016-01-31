@@ -1,12 +1,18 @@
 var parse = require('co-busboy');
 var path = require('path');
 var logger = require('../../common/logger');
+var auth = require("../middlewares/auth");
 var fs = require('fs');
 var config = require("../../config");
 var koaImage = require("koa-image");
-
 //图片上传服务端接收
 exports.images = function *(){
+	//权限检查
+	if(!auth.isAuth()){	
+		this.type = 'json';
+		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
+		return;	
+	}
 	var extname,
         type = this.request.query['type'];
 	var parts = parse(this,{

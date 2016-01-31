@@ -34,3 +34,8 @@ passport.use(new GithubStrategy (config.github,
 		});
     }
 ));
+
+exports.isAuth = function(){
+	var isAuth = this.session && this.session.passport && this.session.passport.user;
+	return isAuth?true:false;
+}

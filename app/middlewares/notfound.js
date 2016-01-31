@@ -16,7 +16,8 @@ exports.error = function *(next){
 		Loader: loader,
 		config: config,
 		title: '404-技术说',
-		curpos: '404'
+		curpos: '404',
+		curuser: this.session && this.session.passport && this.session.passport.user
 	  });
 	  break;
 	case 'json':
