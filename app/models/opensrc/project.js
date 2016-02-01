@@ -6,7 +6,7 @@ var ObjectId = Schema.ObjectId;
 
 var ProjectSchema = new Schema({
 	name: {type: String },
-	type: {type: Number }, //1=>javascript,2=>java,3=>php,4=>python,5=>c++/c,6=>css
+	language: {type: String}, 
 	starred: { type: Number,default: 0 },
 	like_count: { type: Number,default: 0 },
 	visit_count: { type: Number,default: 0 },

@@ -15,7 +15,7 @@ exports.list = function *(){
 	
 	this.type = 'json';
 	//读取数据
-    var data = yield Project.findAll(null,'name type starred visit_count like_count',{limit: config.page_size,skip: page_size * (pageno-1)});
+    var data = yield Project.findAll(null,'name language starred visit_count like_count',{limit: config.page_size,skip: page_size * (pageno-1)});
 
 	if(!data || data.length <= 0){
 		this.body = JSON.stringify({status: false,count: 2,data:'Empty'});

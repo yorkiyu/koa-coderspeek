@@ -16,13 +16,13 @@
 <% include ../share/nav.html %>
 <article>
 	<section>
-		<div class="container">
+		<div class="container" id="container">
 			<ul class="content-panel clearfix" id="content-panel">
 				<% for(var i=0;i<data.length;i++) {%>
 					<li>
                         <a href="/opensrc/notelist/<%= data[i]._id %>" target="_blank">
                             <div class="content-box">
-                                <div class="language"><%=config.projectType[data[i].type]%></div>
+                                <div class="language"><%=data[i].language%></div>
                                 <div class="name-wrap text-center">
                                     <%= data[i].name %>
                                 </div>
@@ -57,7 +57,7 @@
     <?for(var i=0;i<list.length;i++){?> 
         <li>
             <div class="content-box">
-                <div class="language"><?=projectType[list[i].type]?></div>
+                <div class="language"><?=list[i].language?></div>
                 <div class="name-wrap text-center">
                     <?= list[i].name ?>
                 </div>

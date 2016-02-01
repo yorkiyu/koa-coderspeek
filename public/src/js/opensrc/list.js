@@ -56,7 +56,6 @@ define(function(require,exports,module){
             });
         } 
         function createWidget(data){
-            data.projectType = constants.projectType;
             var html = baidu_t.template(list_item_tpl,data);
             return html;
         }
@@ -65,12 +64,28 @@ define(function(require,exports,module){
             nextPage: nextPage 
         }
     }();
-    
+	//aside module
+	var AsideModule = function(){
+		var $aside_wrap = $("#aside-wrap"),
+			$container = $("#container");	
+		function run(){
+			setTimeout(function(){
+				$aside_wrap.css({
+					left: (base.clientInfo.width - $container.width()) / 2 + $container.width() + 10 + "px",
+					visibility: "visible"
+				});	
+			},2500);	
+		}
+		return {
+			run:run	
+		}
+	}();
     //main module
     var MainModule = function(){
         function run(){
             //execute list module
             ListModule.run();
+			AsideModule.run();
             agent();
             //load img
             lazyload.push($(".img-box"));

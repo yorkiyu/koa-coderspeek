@@ -8,7 +8,7 @@ var koaImage = require("koa-image");
 //图片上传服务端接收
 exports.images = function *(){
 	//权限检查
-	if(!auth.isAuth()){	
+	if(!auth.isAuth(this)){	
 		this.type = 'json';
 		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
 		return;	

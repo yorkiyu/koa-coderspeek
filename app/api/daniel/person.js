@@ -67,7 +67,7 @@ exports.list = function *(){
 */
 exports.saveIntroduction = function *(){
 	//权限检查
-	if(!auth.isAuth()){
+	if(!auth.isAuth(this)){
 		this.type = 'json';
 		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
 		return;	

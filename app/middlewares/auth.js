@@ -35,7 +35,7 @@ passport.use(new GithubStrategy (config.github,
     }
 ));
 
-exports.isAuth = function(){
-	var isAuth = this.session && this.session.passport && this.session.passport.user;
+exports.isAuth = function(_this){
+	var isAuth = _this.session && _this.session.passport && _this.session.passport.user;
 	return isAuth?true:false;
 }

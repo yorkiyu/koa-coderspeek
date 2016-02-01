@@ -36,17 +36,7 @@ module.exports = {
 	//分页
 	page_size: 3,
 	pageno: 1,
-
-	//projects type
-	projectType: {
-		1:	'javascript',
-		2: 'java',
-		3: 'php',
-		4: 'python',
-		5: 'c++/c',
-		6: 'css'
-	},
-
+	
 	//导航
 	navis: [
 		{

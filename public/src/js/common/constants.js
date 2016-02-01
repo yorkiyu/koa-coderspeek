@@ -13,16 +13,7 @@ define(function(require,exports,module){
 		//editor
 		editorHolder: '<div class="editor-holder"><img src="/images/i_load.gif"/>&nbsp;&nbsp;编辑器初始化中……</div>',
 		editorFooter: '<div class="editor-footer"><div class="editor-btns"><div class="btn cancel">取消</div><div class="btn save">发布</div></div></div>', 
-
-        projectType: {
-            1:	'javascript',
-            2: 'java',
-            3: 'php',
-            4: 'python',
-            5: 'c++/c',
-            6: 'css'
-        },
-
+        
 		clientInfo: {
 			width: $(window).width(),
 			height: $(window).height()

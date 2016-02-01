@@ -367,3 +367,24 @@ a {
     from { transform: rotate3d(0,1,0,90deg) scale(.9); }
     to { transform: rotateY(0); }
 }
+
+/**aside**/
+
+aside #aside-wrap {
+	width: 40px;
+	background-color: #f7f7f7;
+	position: fixed;
+	bottom: 180px;
+	visibility: hidden;
+}
+aside #aside-wrap .add {
+	padding: 4px 9px;
+	border: 1px solid #ebebeb;
+	box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
+	font-size: 1.6em;
+	color: #cdcdcd;
+	cursor: pointer;
+}
+aside #aside-wrap .add:hover {
+	color: #aaa;
+}

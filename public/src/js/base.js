@@ -35,7 +35,7 @@ define(function(require,exports,module){
 			$(window).scrollTop(0);
 		});	
 	})();
-    
+
     var Utils = { 
         getParam: function(name,source){
             var pattern = new RegExp("(\\?|#|&)" + name + "=([^&#]*)");

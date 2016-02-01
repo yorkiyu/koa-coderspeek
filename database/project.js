@@ -8,32 +8,32 @@ var Project = mongoose.model("Project");
 var data = [
 	{
 		name: 'jquery',
-		type: 1,
+		language: "javascript",
 		starred: 37609,
 	},
 	{
 		name: 'seajs',
-		type: 1,
+		language: "javascript",
 		starred: 5020,
 	},
 	{
 		name: 'zepto',
-		type: 2,
+		language: "javascript",
 		starred: 9921
 	},
 	{
 		name: 'agileorbit-cookbooks',
-		type: 2,
+		language: "c",
 		starred: 240,
 	},
 	{
 		name: 'laravel',
-		type: 3,
+		language: "php",
 		starred: 21084,
 	},
 	{
 		name: 'cocos2d-x',
-		type: 2,
+		language: "java",
 		starred: 7273 
 	}
 
