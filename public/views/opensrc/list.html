@@ -48,6 +48,70 @@
 			</div>
 		</div>
 	</section>
+    <section>
+        <div id="add-layer" class="hide add-layer">
+            <div class="add-panel">
+                <div class="add-title">
+                    添加开源项目
+                    <div class="close">
+                        <i class="glyphicon glyphicon-remove"></i> 
+                    </div>
+                </div>
+                <div class="add-content">
+                    <form class="form-inline">
+                       <div class="form-group">
+                            <label for="github-url">Github地址:</label>
+                            <input type="text" class="" id="github-url" placeholder="项目地址">
+                        </div>
+                        <div class="btn btn-default fetch">拉取数据</div>
+                        <span class="ret"></span>
+                    </form>
+                    <ul class="info-wrap clearfix">
+                        <li>
+                            <span>Author：</span> 
+                            <span>-</span>
+                        </li>     
+                        <li>
+                            <span>Name：</span> 
+                            <span>-</span>
+                        </li>     
+                        <li>
+                            <span>Starred：</span> 
+                            <span>-</span>
+                        </li>     
+                        <li>
+                            <span>Watchers：</span> 
+                            <span>-</span>
+                        </li> 
+                        <li>
+                            <span>Forks：</span> 
+                            <span>-</span>
+                        </li>     
+                        <li>
+                            <span>Language：</span> 
+                            <span>-</span>
+                        </li> 
+                        <li>
+                            <span>Github：</span> 
+                            <span>-</span>
+                        </li> 
+                        <li>
+                            <span>Home：</span> 
+                            <span>-</span>
+                        </li>     
+                        <li class="desc">
+                            <span>Description：</span>
+                            <span>-</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="add-btns text-right">
+                    <div class="message"></div>
+                    <div class="btn btn-primary disabled save">保存</div> 
+                </div>
+            </div> 
+        </div>
+    </section>
 </article>
 <% include ../share/aside.html %>
 <% include ../share/footer.html %>

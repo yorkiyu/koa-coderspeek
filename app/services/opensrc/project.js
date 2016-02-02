@@ -14,9 +14,24 @@ exports.findAll = function(conditions,fields,options){
 	options = options || null;
     return Project.find(conditions,fields,options).exec();
 }
-
+exports.findOne = function(conditions,fields){
+	return Project.findOne(conditions,fields).exec(); 
+}
 exports.findById = function(id,fields){
 	return Project.findById(id,fields).exec();
+}
+exports.insertOpensrc = function *(data){
+    var projectModel = new Project(); 
+    projectModel.author = data.author;
+    projectModel.name = data.name;
+    projectModel.starred = data.starred;
+    projectModel.watchers = data.watchers;
+    projectModel.forks = data.forks;
+    projectModel.language = data.language;
+    projectModel.github_url = data.github_url;
+    projectModel.home = data.home;
+    projectModel.description = data.description;
+    return projectModel.save();
 }
 
 

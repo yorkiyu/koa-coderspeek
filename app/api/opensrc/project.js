@@ -1,5 +1,6 @@
 var Services = require("../../services");
 var config = require("../../../config");
+var auth = require("../../middlewares/auth");
 var loader = require("loader");
 var Project = Services.Project;
 
@@ -28,4 +29,26 @@ exports.list = function *(){
 	}
 }
 
-
+/*
+    * 保存数据
+    * @params {string} 
+*/
+exports.saveProject = function *(){
+	this.type = 'json';
+    //权限检查
+	if(!auth.isAuth(this)){	
+		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
+		return;	
+	}
+    var project = yield Project.findOne({github_url: this.request.body.github_url},"_id");
+    if(project){
+	    this.body = JSON.stringify({status: false,count: 6,data:{id: project._id} });
+        return;
+    }
+    var result = yield Project.insertOpensrc(this.request.body);
+    if(result){
+        this.body = JSON.stringify({status: true,count: 1,data: {id: result._id}});
+    }else {
+        this.body = JSON.stringify({status: false,count: 3,data: "Failed"});
+    } 	
+}

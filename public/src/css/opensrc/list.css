@@ -132,3 +132,117 @@ ul.content-panel li:hover .info-wrap .block {
     }
 }
 
+#add-layer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.15);
+	z-index: 100;
+}
+
+#add-layer .add-panel {
+    width: 600px;
+    height: 370px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ebebeb;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -200px;
+}
+#add-layer input[type=text] {
+    width: 200; 
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+#add-layer .add-title {
+    height: 35px;
+    border-bottom: 1px solid #ebebeb;
+    font-size: 1.5em;
+    line-height: 35px;
+    position: relative;
+}
+#add-layer .add-title .close {
+    width: 30px;
+    height: 30px;
+    font-size: 1.3em;
+    line-height: 30px;
+    color: #888;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    cursor: pointer;
+}
+#add-layer .add-title .close:hover {
+    color: #555;
+}
+#add-layer .add-content {
+    height: 255px;
+    padding: 10px 0; 
+}
+#add-layer .fetch img {
+    width: 25px;
+    height: 25px;
+}
+#add-layer ul ,li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#add-layer .info-wrap {
+    padding: 10px 0;
+}
+#add-layer .info-wrap li {
+    width: 50%;
+    font-size: 1em;
+    line-height: 35px;
+    float: left;
+    color: #999;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#add-layer .info-wrap li span:first-child{
+    color: #666;
+}
+#add-layer .info-wrap li.desc {
+    width: 100%;
+}
+#add-layer .add-btns {
+    height: 60px;
+    border-top: 1px solid #ebebeb;
+    line-height: 59px;    
+}
+#add-layer .add-btns > div {
+    display: inline-block;
+}
+#add-layer .add-btns .save img{
+    width: 25px;
+    height: 25px;
+}
+#add-layer .add-btns .message {
+    margin-right: 10px;
+}
+#add-layer .add-btns .message a {
+    color: #4078C0;
+}
+
