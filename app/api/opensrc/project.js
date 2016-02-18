@@ -45,7 +45,7 @@ exports.saveProject = function *(){
 	    this.body = JSON.stringify({status: false,count: 6,data:{id: project._id} });
         return;
     }
-    var result = yield Project.insertOpensrc(this.request.body);
+    var result = yield Project.insertOpensrc(this.request.body,this.session.passport.user._id);
     if(result){
         this.body = JSON.stringify({status: true,count: 1,data: {id: result._id}});
     }else {

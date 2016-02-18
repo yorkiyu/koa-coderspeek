@@ -20,8 +20,9 @@ exports.findOne = function(conditions,fields){
 exports.findById = function(id,fields){
 	return Project.findById(id,fields).exec();
 }
-exports.insertOpensrc = function *(data){
+exports.insertOpensrc = function *(data,user_id){
     var projectModel = new Project(); 
+    projectModel.creatorId = user_id;
     projectModel.author = data.author;
     projectModel.name = data.name;
     projectModel.starred = data.starred;

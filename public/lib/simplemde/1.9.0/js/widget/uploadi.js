@@ -1,4 +1,3 @@
-define(function(require,exports,module){
 (function(mod){
     if(typeof exports == "object" && typeof module == "object")
         module.exports = mod();
@@ -158,6 +157,7 @@ define(function(require,exports,module){
                     .removeClass("text-info")
                     .addClass("text-danger")
                     .html("<i class=\"glyphicon glyphicon-remove\"></i>&nbsp;图片上传失败，请检查网络或者系统升级中!"); 
+					isUpload = false;
                     return;
                 }
                 var $idoc = $($tpl.find("iframe").prop("contentWindow").document); 
@@ -193,5 +193,4 @@ define(function(require,exports,module){
         })();
     }
     return run;
-});
 });

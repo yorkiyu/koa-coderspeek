@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var ProjectSchema = new Schema({
+    creatorId: {type: ObjectId},
 	name: {type: String },
     author: {type: String},
 	starred: { type: Number,default: 0 },

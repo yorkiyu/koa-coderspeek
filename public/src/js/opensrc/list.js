@@ -86,6 +86,10 @@ define(function(require,exports,module){
 				});	
             });
             $aside_wrap.find(".add").bind("click",function(){
+                if(!login.isAuth()){
+                    login.loginEmit();
+                    return;
+                }
                 $add_layer.removeClass("hide")
                 .addClass("show"); 
             });
@@ -171,6 +175,7 @@ define(function(require,exports,module){
                 $github_input.focus();
                 return; 
             }
+            url = url.replace(/https:\/\/[^\/]+/,"https://api.github.com/repos");
             resetInfo();
             $add_layer.find(".ret").html("").removeClass("text-danger").removeClass("text-success");
             $add_layer.find(".save").addClass("disabled");
