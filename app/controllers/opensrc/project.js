@@ -24,4 +24,16 @@ exports.index = function *(){
 	});	
 }
 
+//add project controller
+exports.add = function *(){
+    //读取模板
+	this.body = yield render('opensrc/project_add',{
+		Loader: loader,
+		config: config,
+		title: '添加开源项目-技术说',
+		curpos: 'project_add',
+		curuser: this.session && this.session.passport && this.session.passport.user
+	});	
+}
+
 

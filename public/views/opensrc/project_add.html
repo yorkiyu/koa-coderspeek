@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../share/header.html %>
+	<%-
+		Loader()
+		.css('/lib/bootstrap/3.3.6/css/bootstrap.css')
+		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
+        .css('/src/css/icomoon-fonts.css')
+		.css('/src/css/base.css')
+		.css('/src/css/opensrc/project-add.css')
+		.done({})
+	%>
+</head>
+<body>
+<% include ../share/nav.html %>
+<article>
+	<section>
+        <div class="container">
+            <div class="content-panel">
+                <div class="row step">
+                    <div class="col-xs-4 active-color" data-name="step1">
+                        <h4>第一步</h4>
+                        <small>获取项目github信息</small>
+                    </div> 
+                    <div class="col-xs-4" data-name="step2">
+                        <h4>第二步</h4> 
+                        <small>添加项目描述</small> 
+                    </div> 
+                    <div class="col-xs-4" data-name="step3">
+                        <h4>第三步</h4>
+                        <small>完成</small>
+                    </div>
+                </div>
+                <div class="content" id="content">
+                    <div class="box step1 show">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="exampleInputName2">github地址:</label>
+                                <input type="text" class="form-control" id="github-url" placeholder="项目地址">
+                            </div>
+                            <div class="btn btn-default fetch">拉取数据</div>
+                            <span class="ret"></span>
+                        </form>
+                        <ul class="info-wrap">
+                            <li class="row">
+                                <div class="col-xs-4">
+                                    <span>Author：</span> 
+                                    <span>-</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Name：</span> 
+                                    <span>-</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Starred：</span> 
+                                    <span>-</span>
+                                </div>
+                            </li>     
+                            <li class="row">
+                                <div class="col-xs-4">
+                                    <span>Watchers：</span> 
+                                    <span>-</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Forks：</span> 
+                                    <span>-</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Language：</span> 
+                                    <span>-</span>
+                                </div>
+                            </li> 
+                            <li class="row">
+                                <div class="col-xs-4">
+                                    <span>Github：</span> 
+                                    <span>-</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Home：</span> 
+                                    <span>-</span>
+                                </div>
+                            </li>     
+                            <li class="row">
+                                <div class="col-xs-12">
+                                    <span>Description：</span>
+                                    <span>-</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> 
+                    <div class="box step2 hide">
+                    
+                    </div>
+                    <div class="box step3 hide">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+<% include ../share/aside.html %>
+<% include ../share/footer.html %>
+<% include ../share/login.html %>
+
+<script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script>
+	seajs.config({
+		alias: {
+			'jquery': '/lib/jquery/2.2.0/jquery.js'
+		}
+	});
+	if(location.href.indexOf('dev=1') == -1){
+		seajs.use('/src/js/opensrc/project.add.js');		
+	}else {
+		seajs.use('/dist/opensrc/project.add.min.js');		
+	}
+</script>
+</body>
+</html>
+
