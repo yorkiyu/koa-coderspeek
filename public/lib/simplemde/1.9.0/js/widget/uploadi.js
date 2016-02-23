@@ -1,3 +1,4 @@
+define(function(require,exports,module){
 (function(mod){
     if(typeof exports == "object" && typeof module == "object")
         module.exports = mod();
@@ -193,4 +194,5 @@
         })();
     }
     return run;
+});
 });

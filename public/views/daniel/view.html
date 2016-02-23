@@ -38,12 +38,11 @@
 				</div>
 			</div>	
 			<div id="content-wrap">
-				<textarea id="old-markdown" style="display:none"><%= data.markdown?data.markdown:'' %></textarea>
 				<div class="content-panel">
-                    <%if( data.html ){%>
+                    <%if( data.introduction ){%>
 						<div class="edit text-center" id="edit"><i class="glyphicon glyphicon-pencil"></i></div>
 						<div class="content">
-							<%- data.html %>
+							<%- data.introduction %>
 						</div>
                     <%}else{%>
 						<div class="edit text-center hide" id="edit"><i class="glyphicon glyphicon-pencil"></i></div>

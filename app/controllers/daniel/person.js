@@ -4,6 +4,7 @@ var loader = require("loader");
 var Person = Services.Person;
 
 var render = require("../../../common/render");
+var markdown = require("../../../common/markdownHelper");
 
 //list page controller
 exports.index = function *(){
@@ -28,12 +29,8 @@ exports.index = function *(){
 exports.view = function *(id){
 	var data = yield Person.findById(id);
 
-	//将json字符串转成json
-	if(data.introduction){
-		var introduction =  JSON.parse(data.introduction);
-		data.html = introduction.html;
-		data.markdown = introduction.markdown;
-	}
+    //convert markdown to html
+	data.introduction = markdown.markdown(data.introduction);
 
     //读取模板
 	this.body = yield render('daniel/view',{

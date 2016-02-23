@@ -122,17 +122,31 @@ define(function(require,exports,module){
             });	
         }
         function editHandler(){
-            $content_wrap.find(".content").hide();	
-            $content_wrap.find("#edit").hide();
-            editor.createEditor(function(){
-                //回调，插入编辑器底部功能按钮
-                if(!isInsertFooter){
-                    $editorFooter.insertAfter(".editor-preview-side");
-                    isInsertFooter = true;
-                }else {
-                    $editorFooter.show();	
+            $.ajax({
+                type: "get",
+                url: "/api/daniel/person/intro?id="+$portrait.attr("data-id"),
+                dataType: "json",
+                success: function(ret){
+                    if(!ret.status){
+                    
+                    }else {
+                        $content_wrap.find(".content").hide();	
+                        $content_wrap.find("#edit").hide();
+                        editor.createEditor(function(){
+                            //回调，插入编辑器底部功能按钮
+                            if(!isInsertFooter){
+                                $editorFooter.insertAfter(".editor-preview-side");
+                                isInsertFooter = true;
+                            }else {
+                                $editorFooter.show();	
+                            }
+                            editor.value(ret.data);
+                        });
+                    }
+                },
+                error: function(ret){
+                
                 }
-                editor.value($content_wrap.find("#old-markdown").text());
             });
         }
         function cancelHandler($target){
@@ -145,23 +159,17 @@ define(function(require,exports,module){
             $content_wrap.find("#edit").show();
         }
         function saveHandler($target){
-            var html = htmlFormat(editor.getHtml()),
-                markdown = editor.value();
             $target.html(constants.load_img);
             editor.save({
                 url: "/api/daniel/person/saveintro?id="+$portrait.attr("data-id"),
-                data: {
-                    html: html,
-                    markdown: markdown 
-                } 
-            },function(ret){
-                if(ret){
+                data: { 'markdown': editor.value()}
+            },function(err,ret){
+                if(err){
                             
                 }else {
-                    $content_wrap.find(".content").html(html).show();		
+                    $content_wrap.find(".content").html(ret.data).show();		
                     //设置图片占位符
                     MainModule.conImages();
-                    $content_wrap.find("#old-markdown").text(markdown);
                     $content_wrap.find("#edit").removeClass("hide").show();
                     $editorFooter.hide();
                     editor.removeEditor();
@@ -170,19 +178,6 @@ define(function(require,exports,module){
             });
         }
 
-        //对markdown生成的html进行格式化
-        function htmlFormat(html){
-            var $html = $("<div>"+html+"</div>");
-            var destHtml = '<span class="img-wrap"><span class="img-box"><span class="img-holderplace" title="技术说"><i class="glyphicon glyphicon-picture"></i></span></span></span>';
-            $html.find("img[src]").each(function(){
-                var $_this = $(this),
-                    $destHtml = $(destHtml);
-                $destHtml.find(".img-box").attr("data-src",$_this.attr("src"));
-                $_this.parents("p:eq(0)").addClass("markdown-img");
-                $_this.replaceWith($destHtml);
-            });
-            return $html.html();
-        }
 		return {
 			run: run,
             get$conwrap: get$conwrap

@@ -3,6 +3,7 @@ var config = require("../../../config");
 var loader = require("loader");
 var Person = Services.Person; 
 var auth = require("../../middlewares/auth");
+var markdown = require("../../../common/markdownHelper");
 var _ = require("lodash");
 /*	
 	* 点赞，对应记录like_count值加1
@@ -62,8 +63,6 @@ exports.list = function *(){
 
 /*
 	* 简介保存
-	* @param {Object} introduction
-	* return promise
 */
 exports.saveIntroduction = function *(){
 	//权限检查
@@ -85,20 +84,40 @@ exports.saveIntroduction = function *(){
 
 	//数据检测合法性
 	try{	
-		if(!_.has(data,"html") || !_.has(data,"markdown")){
-			throw new Error('Catch me');
-		}
-		data = JSON.stringify(data);	
 	}catch(e){
 		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Data'});
 		return;
 	}
-
 	//跟新introduction的值
 	try{
-		var ret = yield Person.updateById(_id,{introduction: data}); 
+		var ret = yield Person.updateById(_id,{introduction: data['markdown']}); 
 		if(ret){
-			this.body = JSON.stringify({status: true,count: 0,data:'Success'});
+			this.body = JSON.stringify({status: true,count: 0,data: markdown.markdown(data['markdown'])});
+			return;
+		}
+		throw new Error('Catch me');
+	}catch(e){
+		this.body = JSON.stringify({status: false,count: 3,data:'Failed'});
+	}
+}
+
+/**
+    * 获取简介
+**/
+exports.getIntroduction = function * (){
+    var _id = this.query["id"];
+
+	//查看id是否存在
+	if(!_id){
+		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Params'});
+		return;
+	}
+    
+    //跟新introduction的值
+	try{
+		var ret = yield Person.findById(_id,'introduction'); 
+		if(ret){
+			this.body = JSON.stringify({status: true,count: 0,data: ret['introduction']});
 			return;
 		}
 		throw new Error('Catch me');

@@ -33,7 +33,7 @@ define(function(require,exports,module){
 		//editor holder
 		_this.$editorHolder = $(constants.editorHolder);
 		_this.$editorHolder.insertAfter($textArea);
-		require.async(['simplemde','uploadi','simplemde-css','uploadi-css'],function(SimpleMDE,Uploadi){
+		require.async(['simplemde','uploadi','simplemde-css','uploadi-css'],function(SimpleMDE,Uploadi,a,b){
 			_this.$editorHolder.remove();
 			simplemde = new SimpleMDE({ 
 				element: $textArea[0],
@@ -67,11 +67,7 @@ define(function(require,exports,module){
 			data: params.data,
 			dataType: "json",
 			success: function(ret){
-				if(ret.status){
-					callback && callback();	
-				}else {
-					callback && callback(ret);		
-				}
+				callback && callback(null,ret);		
 				isSaving = false;
 			},
 			error: function(e){

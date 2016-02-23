@@ -14,6 +14,7 @@ exports.findAll = function(conditions,fields,options){
 	options = options || null;
     return Person.find(conditions,fields,options).exec();
 }
+
 exports.findById = function(id,fields){
 	return Person.findById(id,fields).exec();
 }

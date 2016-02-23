@@ -8,6 +8,7 @@ module.exports = function(app){
 	app.use(route.get('/api/daniel/person/addLike',person.addLike));
 	app.use(route.get('/api/daniel/person/list',person.list));
 	app.use(route.post('/api/daniel/person/saveintro',person.saveIntroduction));
+	app.use(route.get('/api/daniel/person/intro',person.getIntroduction));
 
     //opensrc
 	app.use(route.get('/api/opensrc/project/list',project.list));
