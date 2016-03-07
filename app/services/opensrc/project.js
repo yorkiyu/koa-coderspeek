@@ -31,8 +31,8 @@ exports.insertOpensrc = function *(data,user_id){
     projectModel.language = data.language;
     projectModel.github_url = data.github_url;
     projectModel.home = data.home;
+    projectModel.content = data.content;
     projectModel.description = data.description;
     return projectModel.save();
 }
-
 

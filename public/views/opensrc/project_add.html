@@ -18,7 +18,7 @@
 	<section>
         <div class="container">
             <div class="content-panel">
-                <div class="row step">
+                <div class="row step-nav">
                     <div class="col-xs-4 active-color" data-name="step1">
                         <h4>第一步</h4>
                         <small>获取项目github信息</small>
@@ -88,12 +88,27 @@
                                 </div>
                             </li>
                         </ul>
+						<div class="bottom-btns text-right">
+							<div class="next btn btn-primary disabled">下一步</div>	
+						</div>
                     </div> 
                     <div class="box step2 hide">
-                    
+						<div class="project-item">
+							添加项目描述！	
+						</div>
+						<textarea id="markdown"></textarea>
+						<div class="bottom-btns text-right">
+							<div class="prev btn btn-primary ">上一步</div>	
+							<div class="next btn btn-primary disabled">下一步</div>	
+						</div>
                     </div>
                     <div class="box step3 hide">
-                    
+						<div class="result"></div>
+						<div class="bottom-btns text-right">
+							<span class="message"></span>
+							<div class="prev btn btn-primary ">上一步</div>	
+							<div class="save btn btn-primary ">完成</div>	
+						</div>
                     </div>
                 </div>
             </div>
@@ -105,10 +120,15 @@
 <% include ../share/login.html %>
 
 <script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script src="/lib/seajs/3.0.0/seajs-css/seajs-css.js" type="text/javascript"></script>
 <script>
 	seajs.config({
 		alias: {
-			'jquery': '/lib/jquery/2.2.0/jquery.js'
+			'jquery': '/lib/jquery/2.2.0/jquery.js',
+			'simplemde': '/lib/simplemde/1.9.0/js/simplemde.min.js',
+			'simplemde-css': '/lib/simplemde/1.9.0/css/simplemde.min.css',
+			'uploadi': '/lib/simplemde/1.9.0/js/widget/uploadi.js',
+			'uploadi-css': '/lib/simplemde/1.9.0/css/widget/uploadi.css'
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){

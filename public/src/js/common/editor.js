@@ -46,9 +46,15 @@ define(function(require,exports,module){
 					image: Uploadi?["![](",")"]:["![](http://", ")"]	
 				}
 			});
+			simplemde.codemirror.on("change",function(){
+				_this.changeHandler();	
+			});	
 			callback && callback();
             //redefineRender();
 		});	
+	}
+	Editor.prototype.changeHandler = function(){
+			
 	}
 	Editor.prototype.value = function(val){
 		return simplemde.value(val);		

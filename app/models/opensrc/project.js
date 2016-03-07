@@ -15,6 +15,7 @@ var ProjectSchema = new Schema({
     github_url: {type: String},
     home: {type: String},
     description: {type: String},
+	content: { type: String },
 	like_count: { type: Number,default: 0 },
 	visit_count: { type: Number,default: 0 },
 	create_at: { type: Date, default: Date.now },

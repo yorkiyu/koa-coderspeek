@@ -4,6 +4,7 @@ var loader = require("loader");
 var Project = Services.Project;
 var Note = Services.Note;
 var render = require("../../../common/render");
+var markdown = require("../../../common/markdownHelper");
 
 //list page controller
 exports.index = function *(id){
@@ -16,7 +17,8 @@ exports.index = function *(id){
         Project.findById(id),
         Note.findAll({projectId: id},null,{limit: config.page_size,skip: page_size * (pageno-1)})
     ];
-    console.log(data);    
+	data[0].content = markdown.markdown(data[0].content);
+
     //读取模板
 	this.body = yield render('opensrc/note_list',{
 		data: data,
