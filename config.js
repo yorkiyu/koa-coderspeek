@@ -56,6 +56,12 @@ module.exports = {
 			name: '实践',
 			code: 'practice_list',
 			url: '/practice/list'
-		}
+		},
+        {
+            id: 4,
+            name: '程序故事',
+            code: 'code_list',
+            url: '/code/list'
+        }
 	]	
 }

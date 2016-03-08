@@ -17,23 +17,35 @@
 <article>
 	<section>
 		<div class="container" id="container">
+            <div class="topmake-wrap row"> 
+                <div class="col-xs-9 select-wrap">
+                   <div class="title">语言：</div>
+                   <div class="lang-item <%if(!pos){%>text-primary<%}%>"><a href="<%=path%>">全部</a></div>
+                   <% for(var i=0;i<langData.length;i++){ %>
+                       <div class="lang-item <%if(pos == langData[i].name){%>text-primary<%}%>"><a href="<%=path%>?lang=<%=langData[i].name%>"><%=langData[i].name%></a></div>
+                   <%}%>
+                </div>
+                <div class="col-xs-3">
+                    <div id="add-pro" title="点击添加开源项目"><a href="/opensrc/project/add"><i class="glyphicon glyphicon-plus"></i></a></div>  
+                </div>
+            </div>
 			<ul class="content-panel clearfix" id="content-panel">
-				<% for(var i=0;i<data.length;i++) {%>
+				<% for(var i=0;i<listData.length;i++) {%>
 					<li>
-                        <a href="/opensrc/notelist/<%= data[i]._id %>" target="_blank">
+                        <a href="/opensrc/notelist/<%=  listData[i]._id %>" target="_blank">
                             <div class="content-box">
-                                <div class="language"><%=data[i].language%></div>
+                                <div class="language"><%=listData[i].language%></div>
                                 <div class="name-wrap text-center">
-                                    <%= data[i].name %>
+                                    <%= listData[i].name %>
                                 </div>
                                 <div class="info-wrap clearfix">
                                     <div class="block">
                                         <span class="icon-github"></span> 
-                                        <span class="text"><%= data[i].starred %></span>
+                                        <span class="text"><%= listData[i].starred %></span>
                                     </div>
                                     <div class="block">
                                         <span class="icon-eye"></span> 
-                                        <span class="text"><%= data[i].visit_count %></span>
+                                        <span class="text"><%= listData[i].visit_count %></span>
                                     </div>
                                 </div>
                             </div>
@@ -48,72 +60,7 @@
 			</div>
 		</div>
 	</section>
-    <section>
-        <div id="add-layer" class="hide add-layer">
-            <div class="add-panel">
-                <div class="add-title">
-                    添加开源项目
-                    <div class="close">
-                        <i class="glyphicon glyphicon-remove"></i> 
-                    </div>
-                </div>
-                <div class="add-content">
-                    <form class="form-inline">
-                       <div class="form-group">
-                            <label for="github-url">Github地址:</label>
-                            <input type="text" class="" id="github-url" placeholder="项目地址">
-                        </div>
-                        <div class="btn btn-default fetch">拉取数据</div>
-                        <span class="ret"></span>
-                    </form>
-                    <ul class="info-wrap clearfix">
-                        <li>
-                            <span>Author：</span> 
-                            <span>-</span>
-                        </li>     
-                        <li>
-                            <span>Name：</span> 
-                            <span>-</span>
-                        </li>     
-                        <li>
-                            <span>Starred：</span> 
-                            <span>-</span>
-                        </li>     
-                        <li>
-                            <span>Watchers：</span> 
-                            <span>-</span>
-                        </li> 
-                        <li>
-                            <span>Forks：</span> 
-                            <span>-</span>
-                        </li>     
-                        <li>
-                            <span>Language：</span> 
-                            <span>-</span>
-                        </li> 
-                        <li>
-                            <span>Github：</span> 
-                            <span>-</span>
-                        </li> 
-                        <li>
-                            <span>Home：</span> 
-                            <span>-</span>
-                        </li>     
-                        <li class="desc">
-                            <span>Description：</span>
-                            <span>-</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="add-btns text-right">
-                    <div class="message"></div>
-                    <div class="btn btn-primary disabled save">保存</div> 
-                </div>
-            </div> 
-        </div>
-    </section>
 </article>
-<% include ../share/aside.html %>
 <% include ../share/footer.html %>
 <% include ../share/login.html %>
 

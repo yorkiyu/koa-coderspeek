@@ -5,6 +5,7 @@ var https = require("../../../common/https");
 var auth = require("../../middlewares/auth");
 var loader = require("loader");
 var Project = Services.Project;
+var Language = Services.Language;
 
 /*
 	* 获取大牛列表数据，分页查询数据
@@ -12,13 +13,15 @@ var Project = Services.Project;
 	* return null;
 */
 exports.list = function *(){
+    var lang = this.request.query.lang;
 	var pageno = this.request.query['pageno'];
 	pageno = pageno ||  config.pageno;
 	var page_size = config.page_size;
 	
 	this.type = 'json';
 	//读取数据
-    var data = yield Project.findAll(null,'name language starred visit_count like_count',{limit: config.page_size,skip: page_size * (pageno-1)});
+    var where = lang?{language: lang}:null;
+    var data = yield Project.findAll(where,'name language starred visit_count like_count',{limit: config.page_size,skip: page_size * (pageno-1)});
 
 	if(!data || data.length <= 0){
 		this.body = JSON.stringify({status: false,count: 2,data:'Empty'});
@@ -42,18 +45,40 @@ exports.saveProject = function *(){
 		this.body = JSON.stringify({status: false,count: 1,data:'Not Auth'});
 		return;	
 	}
-    var project = yield Project.findOne({github_url: this.request.body.github_url},"_id");
-    if(project){
-	    this.body = JSON.stringify({status: false,count: 6,data:{id: project._id} });
+    if(!this.request.body){
+        this.body = {status: false,count: 0,data: "Invalid Arguments"};
+        return; 
+    }
+    var existData = yield [
+        Project.findOne({github_url: this.request.body.github_url},"_id"),
+        Language.findOne({name: this.request.body.language},"_id name total")
+    ];
+    this.body = JSON.stringify({status: false,count: 3,data: "Failed"});
+    if(existData[0]){
+	    this.body = JSON.stringify({status: false,count: 6,data:{id: existData[0]._id} });
         return;
     }
-	console.log(this.request.body);
-    var result = yield Project.insertOpensrc(this.request.body,this.session.passport.user._id);
-    if(result){
-        this.body = JSON.stringify({status: true,count: 1,data: {id: result._id}});
+
+    //insert data
+    var todo = [],
+        result;
+    if(!existData[1]){
+        todo = [
+            Language.insertLang(this.request.body.language),
+            Project.insertOpensrc(this.request.body,this.session.passport.user._id)
+        ];      
+    }else {
+        todo = [
+            Language.updateById(existData[1]._id,{total: parseInt(existData[1].total)+1}),
+            Project.insertOpensrc(this.request.body,this.session.passport.user._id)
+        ];
+    }
+    result = yield todo;
+    if(result[1]){
+        this.body = JSON.stringify({status: true,count: 1,data: {id: result[1]._id}});
     }else {
         this.body = JSON.stringify({status: false,count: 3,data: "Failed"});
-    } 	
+    }
 }
 
 exports.getGitProject = function *(){
