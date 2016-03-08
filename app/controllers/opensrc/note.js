@@ -18,10 +18,10 @@ exports.index = function *(id){
         Note.findAll({projectId: id},null,{limit: config.page_size,skip: page_size * (pageno-1)})
     ];
 	data[0].content = markdown.markdown(data[0].content);
-
     //读取模板
 	this.body = yield render('opensrc/note_list',{
-		data: data,
+		project: data[0],
+        notes: data[1],
 		Loader: loader,
 		config: config,
 		title: '开源笔记-技术说',
@@ -30,4 +30,18 @@ exports.index = function *(id){
 	});	
 }
 
+exports.add = function *(){
+     var projectId = this.query.proid;
+     var data = yield Project.findById(projectId,"_id name starred watchers forks language github_url home like_count visit_count");
+     console.log(data);
+     this.body = yield render('opensrc/note_add',{
+        project: data,
+		Loader: loader,
+		config: config,
+        projectId: projectId,
+		title: '添加开源笔记-技术说',
+		curpos: 'opensrc_noteadd',
+		curuser: this.session && this.session.passport && this.session.passport.user
+	});	
 
+}

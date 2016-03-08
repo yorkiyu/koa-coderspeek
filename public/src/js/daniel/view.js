@@ -50,7 +50,9 @@ define(function(require,exports,module){
                     box_w = $content_wrap.find(".content-panel").width();
                 $_this.parents(".img-wrap:eq(0)").css({
                     width:  img_w>box_w?'100%':img_w + 'px',
-                    height: img_w>box_w?box_w*img_ratio:img_w*img_ratio
+                    height: img_w>box_w?box_w*img_ratio:img_w*img_ratio,
+                    display: 'block',
+                    margin: '0 auto' 
                 });
             });
             

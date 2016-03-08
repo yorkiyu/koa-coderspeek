@@ -15,6 +15,11 @@ exports.findAll = function(conditions,fields,options){
     return Note.find(conditions,fields,options).exec();
 }
 
+exports.findOne = function(conditions,fields){
+	return Note.findOne(conditions,fields).exec(); 
+}
+
+
 exports.findByProjectId = function(projectId,fields){
     return Note.findOne({projectId: projectId},fields).exec();
 }

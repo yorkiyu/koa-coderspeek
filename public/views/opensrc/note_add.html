@@ -8,7 +8,7 @@
 		.css('/lib/bootstrap/3.3.6/css/bootstrap-theme.css')
         .css('/src/css/icomoon-fonts.css')
 		.css('/src/css/base.css')
-		.css('/src/css/opensrc/note-list.css')
+		.css('/src/css/opensrc/note-add.css')
 		.done({})
 	%>
 </head>
@@ -20,47 +20,47 @@
             <div id="aside-wrap">
                 <div class="aside-panel">
                     <div class="base-info-wrap text-center">
-                        <h2 ><%= project.name %></h2>
+                        <h2 ><%= project && project.name || ""%></h2>
                         <ul class="score-wrap clearfix">
                             <li class="visit-wrap ">
-                                <div class="num"><%= project.visit_count %></div>
+                                <div class="num"><%= project && project.visit_count || ""%></div>
                                 <div class="title">访问数</div>
                             </li> 
                             <li class="like-wrap">
-                                <div class="num"><%= project.like_count %></div>
+                                <div class="num"><%= project && project.like_count || ""%></div>
                                 <div class="title">点赞数</div>
                             </li> 
                         </ul>
                         <div class="link-wrap text-left">
                             <div class="link-item">
                                 <i class="icon-github2"></i> 
-                                <a href="<%= project.github_url %>" title="<%= project.github_url %>"><%= project.github_url?project.github_url:'无' %></a>
+                                <a href="<%= project && project.github_url %>" title="<%= project && project.github_url %>"><%= project && project.github_url?project.github_url:'无' %></a>
                             </div> 
                             <div class="link-item">
                                 <i class="glyphicon glyphicon-link"></i> 
-                                <a href="<%= project.home%>" title="<%= project.home %>"><%= project.home?project.home:'无'  %></a>
+                                <a href="<%= project && project.home%>" title="<%= project && project.home %>"><%= project && project.home?project.home:'无'  %></a>
                             </div> 
                         </div>
                     </div>
-                    <div class="add-note text-center" id="add-note" title="点击添加学习笔记">
-                        <a href="/opensrc/note/add?proid=<%= project._id %>" target="_blank">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </a>
-                    </div>
                 </div>    	        	
             </div>	
-			<div id="content-wrap">
-				<div class="instruct">
-					<%- project.content -%>	
-				</div>
-                <ul class="content">
-                    <%for(var i = 0;i<notes.length;i++){%>
-                        <li>
-                            <h5><%= notes[i].title %></h5>
-                        </li>
-                    <%}%>
-                </ul>
+            <div id="content-wrap">
+                <div class="content-panel">
+                    <h1>记录“<%= project && project.name || ""%>”开源项目学习笔记</h1> 
+                    <div class="title-wrap">
+                        <span>标题:&nbsp;</span>
+                        <input type="text" class="" id="title" placeholder="标题">
+                    </div>
+                    <div class="cover-wrap">
+                        <span>封面图:&nbsp;</span>
+                        <input type="file" class="" id="cover-image" placeholder="封面图">
+                    </div>
+                    <div class="markdown-wrap">
+                    
+                    </div>
+                </div> 
             </div>
+        </div>
 	</section>
 </article>
 <% include ../share/aside.html %>
@@ -75,9 +75,9 @@
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){
-		seajs.use('/src/js/opensrc/note.list.js');		
+		seajs.use('/src/js/opensrc/note.add.js');		
 	}else {
-		seajs.use('/dist/opensrc/note.list.min.js');		
+		seajs.use('/dist/opensrc/note.add.min.js');		
 	}
 </script>
 </body>

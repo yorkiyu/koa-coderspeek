@@ -30,5 +30,6 @@ module.exports = function(app){
 	app.use(route.get('/opensrc/list', project.index));
 	app.use(route.get('/opensrc/project/add', project.add));
 	app.use(route.get('/opensrc/notelist/:id', note.index));
+	app.use(route.get('/opensrc/note/add', note.add));
 };
 
