@@ -6,6 +6,9 @@ ul,li {
 input[type=file]{
     display: inline;
 }
+#markdown {
+	display: none;
+}
 #content-wrap {
 	width: 75%;
     padding-left: 15px;
@@ -24,14 +27,14 @@ input[type=file]{
 #content-wrap .content-panel h1 {
     margin: 0;
     padding-bottom: 10px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin-bottom: 20px;
     border-bottom: 1px solid #ebebeb;
 }
 #content-wrap .content-panel .cover-wrap ,
 #content-wrap .content-panel .title-wrap {
-    padding-bottom: 15px;
-    font-size: 1em;
+    padding-bottom: 20px;
+    font-size: 1.1em;
     color: #111;
 }
 #content-wrap .content-panel input[type=text] {
@@ -50,6 +53,12 @@ input[type=file]{
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+#content-wrap .content-panel input[type=file] {
+	border: 1px solid #dbdbdb;
+}
+#content-wrap .content-panel .mesg {
+	font-size: 0.9em;
+}
 #aside-wrap {
 	width: 25%;
     min-height: 1px;
@@ -67,7 +76,7 @@ input[type=file]{
     margin-bottom: 20px;
 }
 .aside-panel .score-wrap {
-    padding: 15px 0;
+	padding-bottom: 15px;
 }
 .aside-panel .base-info-wrap .score-wrap li{
     width: 50%;

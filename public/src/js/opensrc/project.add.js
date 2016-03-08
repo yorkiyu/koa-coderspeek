@@ -200,7 +200,7 @@ define(function(require,exports,module){
 		var Editor = require("/src/js/common/editor.js"),
 			editor = new Editor({
 				id: "markdown",
-				upload_url: "/api/upload/images?type=daniel"
+				upload_url: "/api/upload/images?type=opensrc"
 			});
 		function run(){
 			createEditor();

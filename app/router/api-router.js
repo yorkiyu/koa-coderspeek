@@ -1,6 +1,7 @@
 var route = require('koa-route');
 var person = require('../api/daniel/person');
 var project = require('../api/opensrc/project');
+var note = require('../api/opensrc/note');
 var upload = require('../api/upload.js');
 
 module.exports = function(app){
@@ -14,4 +15,7 @@ module.exports = function(app){
 	app.use(route.get('/api/opensrc/project/list',project.list));
 	app.use(route.post('/api/opensrc/project/save',project.saveProject));
 	app.use(route.get('/api/opensrc/project/gitpro',project.getGitProject));
+
+	//note
+	app.use(route.post('/api/opensrc/note/add',note.add ));
 };
