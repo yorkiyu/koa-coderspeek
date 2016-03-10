@@ -17,7 +17,8 @@ define(function(require,exports,module){
 		var $editorFooter = $(constants.editorFooter);
 		$editorFooter.find(".cancel").hide();
 		$editorFooter.find(".save").addClass("disabled");
-
+		var $title = $("#title"),
+			$cover_image = $("#cover-image");
 		function run(){
 			createEditor();
 			//redefine changehandler
@@ -28,6 +29,34 @@ define(function(require,exports,module){
 					$editorFooter.find(".save").addClass("disabled");	
 				}			
 			}
+
+			//event agent 
+			$editorFooter.bind("click",function(e){
+				var target = e.target || e.srcElement;
+				var $target = $(target);
+				if($target.hasClass("save")){
+					saveHandler($target);	
+				}
+			});
+		}
+		function saveHandler($target){
+			if(!$title.val()){
+				$title.focus();
+				return;	
+			}
+			$cover_image.ajaxfileupload({
+				params: {
+					title: $title.val(),
+					content: editor.value()
+				},
+				action: '/api/opensrc/note/add?proid='+base.getParam('proid'),
+				onComplete: function(response){
+					console.log(response);	
+				},
+				validate_extensions: true,
+				valid_extensions : ['gif','png','jpg','jpeg'],
+				submit_button :	$editorFooter.find(".save")	 
+			});
 		}
 		function createEditor(){
             editor.createEditor(function(simplemde){

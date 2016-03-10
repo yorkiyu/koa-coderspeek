@@ -5,6 +5,7 @@ var auth = require("../middlewares/auth");
 var fs = require('fs');
 var config = require("../../config");
 var koaImage = require("koa-image");
+
 //图片上传服务端接收
 exports.images = function *(){
 	//权限检查

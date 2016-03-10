@@ -5,6 +5,7 @@ var $ = require('jquery');
         var settings = {
           params: {},
           action: '',
+		  empty: true,
           onStart: function() { },
           onComplete: function(response) { },
           onCancel: function() { },
@@ -61,11 +62,11 @@ var $ = require('jquery');
 
           var upload_file = function()
           {
-            if($element.val() == '') return settings.onCancel.apply($element, [settings.params]);
+            if($element.val() == '' && !settings.empty) return settings.onCancel.apply($element, [settings.params]);
 
             // make sure extension is valid
             var ext = $element.val().split('.').pop().toLowerCase();
-            if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1)
+            if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1 && !settings.empty)
             {
               // Pass back to the user
               settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
