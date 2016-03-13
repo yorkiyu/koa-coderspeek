@@ -29,27 +29,24 @@ define(function(require,exports,module){
 					$editorFooter.find(".save").addClass("disabled");	
 				}			
 			}
-
-			//event agent 
-			$editorFooter.bind("click",function(e){
-				var target = e.target || e.srcElement;
-				var $target = $(target);
-				if($target.hasClass("save")){
-					saveHandler($target);	
-				}
-			});
+			saveHandler();
 		}
-		function saveHandler($target){
-			if(!$title.val()){
-				$title.focus();
-				return;	
-			}
+		function saveHandler(){
 			$cover_image.ajaxfileupload({
 				params: {
-					title: $title.val(),
-					content: editor.value()
-				},
+					title: '',
+					content: ''
+				},	
 				action: '/api/opensrc/note/add?proid='+base.getParam('proid'),
+				onStart: function(){
+					if(!$title.val()){
+						$title.focus();
+						return false;	
+					}
+					this.parent("form").find("input[name=title]").val($title.val());
+					this.parent("form").find("input[name=content]").val(editor.value());
+					return true;
+				},
 				onComplete: function(response){
 					console.log(response);	
 				},

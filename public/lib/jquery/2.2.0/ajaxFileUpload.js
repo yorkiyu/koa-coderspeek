@@ -86,7 +86,9 @@ var $ = require('jquery');
               if(ret !== false)
               {
                 $element.parent('form').submit(function(e) { e.stopPropagation(); }).submit();
-              }
+              }else {
+				uploading_file = false; 
+			  }
             }
           };
 
@@ -132,7 +134,7 @@ var $ = require('jquery');
 
             // Wrap it in a form
             element.wrap(function() {
-              return '<form action="' + settings.action + '" method="POST" enctype="multipart/form-data" target="'+frame_id+'" />'
+              return '<form action="' + settings.action + '" method="POST" enctype="multipart/form-data" target="'+frame_id+'" style="display: inline;"/>'
             })
             // Insert <input type='hidden'>'s for each param
             .before(function() {

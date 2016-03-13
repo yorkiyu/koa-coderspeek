@@ -6,6 +6,7 @@ var config = require("../../../config");
 var auth = require("../../middlewares/auth");
 var loader = require("loader");
 var Note = Services.Note;
+var koaImage = require("koa-image");
 
 exports.add = function *(){
 	//权限检查
@@ -22,7 +23,7 @@ exports.add = function *(){
 	}
 	var extname;
 	var parts = parse(this,{
-		checkField: function (name, value) {	
+		checkField: function (name, value) {
 			if (name === '_csrf' && !checkCSRF(ctx, value)) {
 				var err =  new Error('invalid csrf token')
 				err.status = 400
@@ -31,7 +32,7 @@ exports.add = function *(){
 		},
 		checkFile: function(fieldname,file,filename){
 			extname = path.extname(filename);
-			if(extname == '.jpg' || extname == '.jpeg' || extname == '.png'){
+			if(extname == '.jpg' || extname == '.jpeg' || extname == '.png' || !filename){
 			}else {
 				var err = new Error("invalid file format");	
 				err.status = 400;
@@ -49,9 +50,17 @@ exports.add = function *(){
 			if(!fs.existsSync(dir)){
 				fs.mkdirSync(dir); 
 			}
-			var stream = fs.createWriteStream(path.join(dir, file_name));
+			result['img_src'] = path.join(dir, file_name);
+			var stream = fs.createWriteStream(result.img_src);
 			part.pipe(stream);
 		}	
 	};
-    this.body = {status: true,count: 0,data: result};
+	if(extname){
+		var dimensions = yield koaImage.getSize(result.img_src);
+		result.img_src = result.img_src+"?img_w="+dimensions.width+"&img_ratio="+(dimensions.height/dimensions.width).toFixed(6);
+	}
+	result.user_id = this.session.passport.user._id;
+	result.project_id = proid;
+	result = yield	Note.insertNote(result); 
+    this.body = {status: true,count: 0,data: result._id};
 }

@@ -23,3 +23,13 @@ exports.findOne = function(conditions,fields){
 exports.findByProjectId = function(projectId,fields){
     return Note.findOne({projectId: projectId},fields).exec();
 }
+
+exports.insertNote = function(data){
+	var note = new Note();	
+	note.title = data.title;
+	note.img_src = data.img_src;
+	note.content = data.content;
+	note.createId= data.user_id;
+	note.projectId = data.project_id;
+	return note.save();
+}
