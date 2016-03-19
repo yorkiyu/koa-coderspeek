@@ -35,7 +35,6 @@ define(function(require,exports,module){
         }
         function initLayout(){
             $aside_panel.css({
-                'height': base.clientInfo.height - 50 + 'px',
                 'width': $aside_wrap.width() + 'px'
             }); 
         }

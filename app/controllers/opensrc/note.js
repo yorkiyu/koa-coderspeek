@@ -3,6 +3,7 @@ var config = require("../../../config");
 var loader = require("loader");
 var Project = Services.Project;
 var Note = Services.Note;
+var User = Services.User;
 var render = require("../../../common/render");
 var markdown = require("../../../common/markdownHelper");
 
@@ -17,6 +18,14 @@ exports.index = function *(id){
         Project.findById(id),
         Note.findAll({projectId: id},null,{limit: config.page_size,skip: page_size * (pageno-1)})
     ];
+	var exeauthor = [];
+	data[1].forEach(function(item){
+		exeauthor.push(User.findById(item.createId,"_id name avatar"));	
+	});
+	var authors = yield exeauthor;
+	for(var i = 0;i<data[1].length;i++){
+		data[1][i].author = authors[i];
+	}	
 	data[0].content = markdown.markdown(data[0].content);
     //读取模板
 	this.body = yield render('opensrc/note_list',{

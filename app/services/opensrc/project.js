@@ -35,4 +35,7 @@ exports.insertOpensrc = function(data,user_id){
     projectModel.description = data.description;
     return projectModel.save();
 }
+exports.updateById = function(id,update){
+    return Project.findByIdAndUpdate(id,update).exec();    
+}
 

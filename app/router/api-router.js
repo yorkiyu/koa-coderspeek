@@ -15,7 +15,10 @@ module.exports = function(app){
 	app.use(route.get('/api/opensrc/project/list',project.list));
 	app.use(route.post('/api/opensrc/project/save',project.saveProject));
 	app.use(route.get('/api/opensrc/project/gitpro',project.getGitProject));
+	app.use(route.get('/api/opensrc/project/instr',project.getInstruct));
+	app.use(route.post('/api/opensrc/project/updateinstr',project.updateInstruct));
 
 	//note
 	app.use(route.post('/api/opensrc/note/add',note.add ));
+	app.use(route.get('/api/opensrc/note/instruct',note.getInstruct ));
 };

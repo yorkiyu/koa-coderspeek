@@ -12,6 +12,10 @@ exports.findOne = function(conditions,fields){
 	return User.findOne(conditions,fields).exec(); 
 }
 
+exports.findById = function(id,fields){
+	return User.findOne({_id:id},fields).exec();
+}
+
 exports.updateById = function(id,update){
     return User.findByIdAndUpdate(id,update).exec();    
 }

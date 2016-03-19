@@ -5,6 +5,7 @@
 }
 #content-wrap {
 	width: 75%;
+	padding-left: 15px;
     min-height: 1px;
 	float: left;
 }
@@ -23,13 +24,13 @@
 #content-wrap .content-panel .edit {
 	width: 30px;
 	height: 30px;
-	font-size: 1.4em;
+	font-size: 1em;
 	line-height: 30px;
 	font-weight: normal;
 	color: #999;
 	position: absolute;
-	top: 8px;
-	right: 8px;
+	top: -4px;
+	right: -4px;
 	cursor: pointer;
 }
 #content-wrap .content-panel .edit:hover {
@@ -49,7 +50,6 @@
 	display: none;
 }
 #aside-wrap .aside-panel {
-    height: 1000px;
 	padding: 15px;
 	background-color: #f7f7f7;
 	box-shadow: 0 0 5px 0 rgba(0,0,0,.15);

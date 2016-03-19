@@ -17,7 +17,7 @@
 <article>
 	<section>
 		<div class="container clearfix">
-            <div id="aside-wrap">
+            <div id="aside-wrap" data-proid="<%=project._id%>">
                 <div class="aside-panel">
                     <div class="base-info-wrap text-center">
                         <h2 ><%= project.name %></h2>
@@ -50,13 +50,23 @@
                 </div>    	        	
             </div>	
 			<div id="content-wrap">
-				<div class="instruct">
-					<%- project.content -%>	
+				<div class="instruct">	
+					<div class="edit text-center" id="edit"><i class="glyphicon glyphicon-pencil"></i></div>
+					<textarea id="markdown"></textarea>
+					<div class="instruct-content">	<%- project.content -%> </div>	
 				</div>
-                <ul class="content">
+                <ul class="content-list">
                     <%for(var i = 0;i<notes.length;i++){%>
                         <li>
-                            <h5><%= notes[i].title %></h5>
+							<div class="top-box <%= notes[i].img_src ? 'padding-left-img' : ''%>">
+								<%if(notes[i].img_src){%>
+									<div class="img-wrap">
+										<div class="img-box" data-src="<%= notes[i].img_src %>"></div>
+									</div>	
+								<%}%>
+								<div class="title"><%= notes[i].title %></div>
+							</div>
+							<div class="bottom-box"></div>
                         </li>
                     <%}%>
                 </ul>
@@ -68,10 +78,17 @@
 <% include ../share/login.html %>
 
 <script src="/lib/seajs/3.0.0/sea.js" type="text/javascript"></script>
+<script src="/lib/seajs/3.0.0/seajs-css/seajs-css.js" type="text/javascript"></script>
+
 <script>
 	seajs.config({
 		alias: {
-			'jquery': '/lib/jquery/2.2.0/jquery.js'
+			'jquery': '/lib/jquery/2.2.0/jquery.js',
+			'ajaxFileUpload': '/lib/jquery/2.2.0/ajaxFileUpload.js',
+			'simplemde': '/lib/simplemde/1.9.0/js/simplemde.min.js',
+			'simplemde-css': '/lib/simplemde/1.9.0/css/simplemde.min.css',
+			'uploadi': '/lib/simplemde/1.9.0/js/widget/uploadi.js',
+			'uploadi-css': '/lib/simplemde/1.9.0/css/widget/uploadi.css'
 		}
 	});
 	if(location.href.indexOf('dev=1') == -1){

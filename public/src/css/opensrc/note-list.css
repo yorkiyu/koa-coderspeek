@@ -18,10 +18,11 @@ ul,li {
 	position: relative;
     overflow: hidden;
 }
-#content-wrap .content {
+
+#content-wrap .content-list {
          
 }
-#content-wrap .content li {
+#content-wrap .content-list li {
     margin-bottom: 8px;
     padding: 15px; 
     border: 1px solid #ebebeb;
@@ -30,13 +31,51 @@ ul,li {
     background-color: #fff;
     cursor: pointer;
 }
+#content-wrap .content-list li .top-box {
+	height: 90px;	
+	position: relative;
+}
+#content-wrap .content-list li .top-box .img-wrap {
+	height: 100%;
+	width: 145px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+#content-wrap .content-list li .top-box .title {
+	font-size: 1.2em;
+}
+#content-wrap .content-list li .padding-left-img {
+	padding-left: 160px;
+}
 
 #content-wrap .instruct {
     padding: 15px;
     background-color: #fff;
     border-radius: 3px;
+	border: 1px solid #ebebeb;
+	box-shadow: 0 0 2px 0 rgba(0,0,0,.1);
+	margin-bottom: 8px;
+	position: relative;
 }
-
+#content-wrap #markdown {
+	display: none;
+}
+#content-wrap .instruct .edit {
+	width: 30px;
+	height: 30px;
+	font-size: 1em;
+	line-height: 30px;
+	font-weight: normal;
+	color: #999;
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	cursor: pointer;
+}
+#content-wrap .content-panel .edit:hover {
+	color: #4078C0;
+}
 #aside-wrap {
 	width: 25%;
     min-height: 1px;

@@ -27,7 +27,7 @@ define(function(require,exports,module){
 	}
 	Editor.prototype.createEditor = function(callback){
 		if(simplemde){
-			return;	
+			return true;	
 		}
 		var $textArea = $("#"+_this.options.id);
 		//editor holder
@@ -52,6 +52,7 @@ define(function(require,exports,module){
 			callback && callback();
             //redefineRender();
 		});	
+		return false;
 	}
 	Editor.prototype.changeHandler = function(){
 			
@@ -73,7 +74,11 @@ define(function(require,exports,module){
 			data: params.data,
 			dataType: "json",
 			success: function(ret){
-				callback && callback(null,ret);		
+				if(ret.status){
+					callback && callback(null,ret);		
+				}else {
+					callback && callback(ret);		
+				}
 				isSaving = false;
 			},
 			error: function(e){

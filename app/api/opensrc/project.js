@@ -3,6 +3,7 @@ var Services = require("../../services");
 var config = require("../../../config");
 var https = require("../../../common/https");
 var auth = require("../../middlewares/auth");
+var markdown = require("../../../common/markdownHelper");
 var loader = require("loader");
 var Project = Services.Project;
 var Language = Services.Language;
@@ -111,3 +112,59 @@ exports.getGitProject = function *(){
 	}
 }
 
+exports.getInstruct = function *(){
+	//权限检查
+	if(!auth.isAuth(this)){	
+		this.type = 'json';
+		this.body = {status: false,count: 1,data:'Not Auth'};
+		return;	
+	}
+
+	var proid = this.query.proid;
+	if(!proid){
+        this.body = {status: false,count: 0,data: "Invalid Arguments"};
+		return;	
+	}
+	var data = yield Project.findOne({_id: proid},"_id content");
+
+	this.type = "json";
+	if(!data){
+		this.body = {status: false,count: 2,data: "Empty data!"};	
+	}else {
+		this.body = {status: true,count: 2,data: data};	
+	}	
+}
+
+exports.updateInstruct = function *(){
+	//权限检查
+	if(!auth.isAuth(this)){	
+		this.type = 'json';
+		this.body = {status: false,count: 1,data:'Not Auth'};
+		return;	
+	}
+
+	var proid = this.query.proid;
+	if(!proid){
+        this.body = {status: false,count: 0,data: "Invalid Arguments"};
+		return;	
+	}
+	var data = this.request.body;
+	//数据检测合法性
+	try{
+	
+	}catch(e){
+		this.body = JSON.stringify({status: false,count: 0,data:'Invalid Data'});
+	}
+	
+	try{
+		var ret = yield Project.updateById(proid,{content: data['markdown']}); 
+		if(ret){
+			this.body = JSON.stringify({status: true,count: 0,data: markdown.markdown(data['markdown'])});
+			return;
+		}
+		throw new Error('Catch me');
+	}catch(e){
+		this.body = JSON.stringify({status: false,count: 3,data:'Failed'});
+	}
+
+}

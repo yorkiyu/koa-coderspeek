@@ -64,3 +64,25 @@ exports.add = function *(){
 	result = yield	Note.insertNote(result); 
     this.body = {status: true,count: 0,data: result._id};
 }
+
+exports.getInstruct = function *(){
+	//权限检查
+	if(!auth.isAuth(this)){	
+		this.type = 'json';
+		this.body = {status: false,count: 1,data:'Not Auth'};
+		return;	
+	}
+
+	var proid = this.query.proid;
+	if(!proid){
+        this.body = {status: false,count: 0,data: "Invalid Arguments"};
+		return;	
+	}
+	var data = yield Note.findOne({_id: proid},"_id content");
+	if(data){
+		this.body = {status: false,count: 2,data: "Empty data!"};	
+	}else {
+		this.body = {status: true,count: 2,data: data};	
+	}		
+
+}
